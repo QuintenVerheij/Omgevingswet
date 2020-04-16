@@ -6,71 +6,53 @@ using UnityEngine.XR.ARSubsystems;
 using UnityEngine.Experimental.XR;
 using System;
 
+[RequireComponent(typeof(ARRaycastManager))]
+
 public class AR_tap_to_place_object : MonoBehaviour
 {
-    public GameObject placementIndicator;
-    private ARSessionOrigin arOrigin;
-    private ARRaycastManager arRaycastManager;
-    private ARPlaneManager arPlaneManager;
-    private Pose placementPose;
-    private bool placementPoseIsValid = false;
-    // Start is called before the first frame update
-    void Start()
+    public GameObject gameObjectToInstantiate;
+
+    private GameObject spawnedObject;
+    private ARRaycastManager _arRaycastManager;
+    private Vector2 touchPosition;
+
+    static List<ARRaycastHit> hits = new List<ARRaycastHit>();
+    
+
+    private void Awake()
     {
-        arOrigin = FindObjectOfType<ARSessionOrigin>();
-        arRaycastManager = FindObjectOfType<ARRaycastManager>();
-        arPlaneManager = FindObjectOfType<ARPlaneManager>();
+        _arRaycastManager = GetComponent<ARRaycastManager>();
     }
 
-    // Update is called once per frame
+    bool TryGetTouchPosition(out Vector2 touchPosition)
+    {
+        if (Input.touchCount > 0)
+        {
+            touchPosition = Input.GetTouch(0).position;
+            return true;
+        }
+
+        touchPosition = default;
+        return false;
+    }
+
     void Update()
     {
-        CalculatePlacementPose();
-        UpdatePlacementIndicator();
-    }
+        if (!TryGetTouchPosition(out Vector2 touchPosition))
+            return;
 
-    private void UpdatePlacementIndicator()
-    {
-        if (placementPoseIsValid)
+        if(_arRaycastManager.Raycast(touchPosition, hits, TrackableType.PlaneWithinPolygon))
         {
-            placementIndicator.SetActive(true);
-            placementIndicator.transform.SetPositionAndRotation(placementPose.position, placementPose.rotation);
-        }
-        else
-        {
-            placementIndicator.SetActive(false);
-        }
-    }
+            var hitPose = hits[0].pose;
 
-    private void CalculatePlacementPose()
-    {
-        var screenCenter = Camera.current.ViewportToScreenPoint(new Vector3(0.5f, 0.5f));
-        var hits = new List<ARRaycastHit>();
-        arRaycastManager.Raycast(screenCenter, hits, TrackableType.Planes);
-
-        placementPoseIsValid = hits.Count > 0;
-        if (placementPoseIsValid)
-        {
-            placementPose = hits[0].pose;
-            placementPose.rotation.SetLookRotation(new Vector3(1,0,1).normalized);
-            Vector3 planeCenter = Vector3.zero;
-            foreach (ARPlane plane in arPlaneManager.trackables)
+            if(spawnedObject == null)
             {
-                if (planeCenter == Vector3.zero)
-                {
-                    planeCenter = plane.center;
-                    placementPose.position = plane.center;
-                }
-                else
-                {
-                    if (plane.center.x + plane.center.y + plane.center.z < planeCenter.x + planeCenter.y + planeCenter.z)
-                    {
-                        planeCenter = plane.center;
-                        placementPose.position = plane.center;
-                    }
-                }
+                spawnedObject = Instantiate(gameObjectToInstantiate, hitPose.position, hitPose.rotation);
+            }
+            else
+            {
+                spawnedObject.transform.position = hitPose.position;
             }
         }
     }
-
 }
