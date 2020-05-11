@@ -5,8 +5,11 @@ using UnityEngine;
 public class ModelSwitcher : MonoBehaviour
 {
     public int currentIndex;
-    public GameObject[] models; //array of instances of models in the scene, modify this array in the inspector
+    public Transform placementPoint;
+    public Transform placedObjectParent;
 
+    public GameObject[] models; //array of instances of models in the scene, modify this array in the inspector
+    
     // Start is called before the first frame update
     void Start(){
         OnIndexChange();
@@ -36,5 +39,15 @@ public class ModelSwitcher : MonoBehaviour
             models[i].SetActive(shouldBeActive); //enable or disable the gameobject, depending on the index
             //when disabled, the model will be invisible, and if enabled, will make the model visible again.
         }
+    }
+
+    public void MoveSelection(Vector3 movement) {
+        placementPoint.position += movement;
+    }
+
+    public void PlaceObject() {
+        GameObject placedObject = Instantiate(models[currentIndex], placedObjectParent);
+        placedObject.transform.position = models[currentIndex].transform.position;
+        placedObject.transform.rotation = models[currentIndex].transform.rotation; //can be handy for later use
     }
 }
