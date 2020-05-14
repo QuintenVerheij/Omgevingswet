@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
@@ -49,18 +47,6 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   var text = "Press the + button to go to the next page.";
 
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      text = "There are currently no Fucks™ available.";
-    });
-  }
-
-
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
@@ -70,64 +56,72 @@ class _MyHomePageState extends State<MyHomePage> {
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
     return Scaffold(
-      appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
-      ),
-      body:
-        Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Invoke "debug painting" (press "p" in the console, choose the
-          // "Toggle Debug Paint" action from the Flutter Inspector in Android
-          // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
-          // to see the wireframe for each widget.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          child: new Container(child: new Column(children: [
-            Container(child: RaisedButton(
-            onPressed: () {
-              Navigator.push(
-                context, MaterialPageRoute(
-                  builder: (context) => SecondRoute()
-                ),
-              );
-            },
-            child: Text("Next Page"),
-          ),
+        appBar: AppBar(
+          // Here we take the value from the MyHomePage object that was created by
+          // the App.build method, and use it to set our appbar title.
+          title: Text(widget.title),
+        ),
+        body: Center(
+            // Center is a layout widget. It takes a single child and positions it
+            // in the middle of the parent.
+            // Column is also a layout widget. It takes a list of children and
+            // arranges them vertically. By default, it sizes itself to fit its
+            // children horizontally, and tries to be as tall as its parent.
+            //
+            // Invoke "debug painting" (press "p" in the console, choose the
+            // "Toggle Debug Paint" action from the Flutter Inspector in Android
+            // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
+            // to see the wireframe for each widget.
+            //
+            // Column has various properties to control how it sizes itself and
+            // how it positions its children. Here we use mainAxisAlignment to
+            // center the children vertically; the main axis here is the vertical
+            // axis because Columns are vertical (the cross axis would be
+            // horizontal).
+            child: new Container(
+                child: new Column(children: [
+          Container(
+            child: RaisedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => SecondRoute()),
+                );
+              },
+              child: Text("Next Page"),
             ),
-             Container(
-                  child:RaisedButton(onPressed: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => ThirdRoute()
-                ),
-              );
-            },
-          child: Text("Third Page")
           ),
-      ),
-      new Container(child: Image.asset('assets/splendid.jpg'))
-          ]
-          )
-        )
-      
-      // This trailing comma makes auto-formatting nicer for build methods.
-        ));
+          Container(
+            child: RaisedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => ThirdRoute()),
+                  );
+                },
+                child: Text("Third Page")),
+          ),
+          new Container(child: Image.asset('assets/splendid.jpg'))
+        ]))
+
+            // This trailing comma makes auto-formatting nicer for build methods.
+            ));
   }
 }
 
 class SecondRoute extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(appBar: AppBar(title: Text("Page Two!")), body: Center(child: RaisedButton(onPressed: () {Navigator.pop(context);}, child: Text("Go back NOW."),),));
+    return Scaffold(
+        appBar: AppBar(title: Text("Page Two!")),
+        body: Center(
+          child: RaisedButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            child: Text("Go back NOW."),
+          ),
+        ));
   }
 }
 
@@ -135,10 +129,17 @@ class ThirdRoute extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Page three lol")), body: Center(child: RaisedButton(onPressed: () {Navigator.pop(context);}, child: Text("Return......")),)
-      );
+        appBar: AppBar(title: Text("Page three lol")),
+        body: Center(
+          child: RaisedButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: Text("Return......")),
+        ));
   }
 }
+
 class MyStatefulWidget extends StatefulWidget {
   MyStatefulWidget({Key key}) : super(key: key);
 
@@ -150,21 +151,26 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   int _selectedIndex = 0;
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
-  static const List<Widget> _widgetOptions = <Widget>[
-    Scaffold(body: RaisedButton(onPressed: () {
-      Navigator.push(context, MaterialPageRoute(builder: (context) => ThirdRoute()
+  List<Widget> _widgetOptions(BuildContext context) {
+    return <Widget>[
+      Scaffold(body: RaisedButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => ThirdRoute()),
+          );
+        },
+      )),
+      Text(
+        'Index 1: Business',
+        style: optionStyle,
       ),
-      );
-    },)),
-    Text(
-      'Index 1: Business',
-      style: optionStyle,
-    ),
-    Text(
-      'Index 2: School',
-      style: optionStyle,
-    ),
-  ];
+      Text(
+        'Index 2: School',
+        style: optionStyle,
+      ),
+    ];
+  }
 
   void _onItemTapped(int index) {
     setState(() {
@@ -179,7 +185,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
         title: const Text('BottomNavigationBar Sample'),
       ),
       body: Center(
-        child: _widgetOptions.elementAt(_selectedIndex),
+        child: _widgetOptions(context).elementAt(_selectedIndex),
       ),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
