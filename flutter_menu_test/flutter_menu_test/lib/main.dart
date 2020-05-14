@@ -44,6 +44,45 @@ class MyHomePage extends StatefulWidget {
   _MyHomePageState createState() => _MyHomePageState();
 }
 
+class LoginPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        appBar: AppBar(
+          title: Text("Log in"),
+        ),
+        body: Center(
+            child: Column(
+          children: <Widget>[
+            TextFormField(
+                decoration: InputDecoration(labelText: "Username"),
+                onChanged: (usernameinput) {
+                  print("$usernameinput");
+                }),
+            TextFormField(
+              decoration: InputDecoration(labelText: "Password"),
+              onChanged: (passwordinput) {
+                print("$passwordinput");
+              },
+            )
+          ],
+        )));
+  }
+}
+
+class RegisterPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        appBar: AppBar(
+          title: Text("Registreer"),
+        ),
+        body: Center(
+          child: Text("Hello"),
+        ));
+  }
+}
+
 class _MyHomePageState extends State<MyHomePage> {
   var text = "Press the + button to go to the next page.";
 
@@ -153,14 +192,6 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   List<Widget> _widgetOptions(BuildContext context) {
     return <Widget>[
-      Scaffold(body: RaisedButton(
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => ThirdRoute()),
-          );
-        },
-      )),
       Text(
         'Index 1: Business',
         style: optionStyle,
@@ -169,6 +200,25 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
         'Index 2: School',
         style: optionStyle,
       ),
+      Scaffold(
+        body: Center(
+            child: Column(children: <Widget>[
+          RaisedButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => LoginPage()),
+                );
+              },
+              child: Text("Log in")),
+          RaisedButton(
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => RegisterPage()));
+              },
+              child: Text("Registreer"))
+        ])),
+      )
     ];
   }
 
