@@ -44,9 +44,11 @@ class MyHomePage extends StatefulWidget {
   _MyHomePageState createState() => _MyHomePageState();
 }
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends State<_LoginPageState> {
   @override
   Widget build(BuildContext context) {
+    String username;
+    String password;
     return Scaffold(
         appBar: AppBar(
           title: Text("Log in"),
@@ -57,14 +59,23 @@ class LoginPage extends StatelessWidget {
             TextFormField(
                 decoration: InputDecoration(labelText: "Username"),
                 onChanged: (usernameinput) {
-                  print("$usernameinput");
+                  setState(() {
+                    username = "$usernameinput";
+                  });
                 }),
             TextFormField(
               decoration: InputDecoration(labelText: "Password"),
               onChanged: (passwordinput) {
-                print("$passwordinput");
+                setState(() {
+                  password = "$passwordinput";
+                });
               },
-            )
+            ),
+            RaisedButton(
+                onPressed: () {
+                  print("u: $username \n p: $password");
+                },
+                child: Text("Submit"))
           ],
         )));
   }
@@ -81,6 +92,16 @@ class RegisterPage extends StatelessWidget {
           child: Text("Hello"),
         ));
   }
+}
+
+class _LoginPageState extends StatefulWidget {
+  _LoginPageState({Key key, this.title, this.username, this.password})
+      : super(key: key);
+  final String title;
+  final String username;
+  final String password;
+  @override
+  LoginPage createState() => LoginPage();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
@@ -207,7 +228,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => LoginPage()),
+                  MaterialPageRoute(builder: (context) => _LoginPageState()),
                 );
               },
               child: Text("Log in")),
