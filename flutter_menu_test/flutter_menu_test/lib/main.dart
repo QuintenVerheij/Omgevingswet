@@ -1,5 +1,11 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_menu_test/models/Misc/messageModels.dart';
+import 'package:http/http.dart' as http;
+
+import 'models/Auth/authModels.dart';
 
 void main() => runApp(MyApp());
 
@@ -11,54 +17,106 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyStatefulWidget(),
+      home: MyHomePage(),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
-  final String title;
+  MyHomePage({Key key}) : super(key: key);
+  final String title = "Login";
 
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
 
-class LoginPage extends State<_LoginPageState> {
+class _MyHomePageState extends State<MyHomePage> {
+  final _formkey = GlobalKey<FormState>();
+
+  final _usernameController = TextEditingController();
+  final _passwordController = TextEditingController();
+
+  Future<void> _performLogin() async {
+    String username = _usernameController.text.trim();
+    String password = _passwordController.text.trim();
+
+    print('login attempt: $username with $password');
+
+    var url = "http://10.0.2.2:8080/auth/login";
+    var body = jsonEncode(AuthorizationTokenRequest(username, password));
+
+    http.post(url,
+      headers: {"Content-Type": "application/json"},
+      body: body
+      ).then((http.Response res) {
+        print("response code" + res.statusCode.toString());
+        print("Response body" + res.body);
+        var m = Message.fromJson(jsonDecode(res.body));
+        if(m.successful){
+          Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => (MyStatefulWidget(userId: m.userId))));
+        }
+      });
+
+  }
+
   @override
   Widget build(BuildContext context) {
-    String username;
-    String password;
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Log in"),
-      ),
+      appBar: AppBar(title: Text(widget.title)),
       body: Center(
-        child: Column(
-          children: <Widget>[
-            TextFormField(
-                decoration: InputDecoration(labelText: "Username"),
-                onChanged: (usernameinput) {
-                  setState(() {
-                    username = "$usernameinput";
-                  });
-                }),
-            TextFormField(
-              decoration: InputDecoration(labelText: "Password"),
-              onChanged: (passwordinput) {
-                setState(() {
-                  password = "$passwordinput";
-                });
-              },
-            ),
-            RaisedButton(
-                onPressed: () {
-                  print("u: $username \n p: $password");
-                },
-                child: Text("Submit"))
-          ],
+          child: Column(children: <Widget>[
+        Center(
+          child: Column(
+            children: <Widget>[
+              Form(
+                key: _formkey,
+                child: Column(
+                  children: <Widget>[
+                    TextFormField(
+                      controller: _usernameController,
+                      validator: (value) {
+                        if (value.isEmpty) {
+                          return 'Please enter some text';
+                        }
+                        return null;
+                      },
+                      decoration: InputDecoration(labelText: "Username"),
+                    ),
+                    TextFormField(
+                      controller: _passwordController,
+                      //obscureText: true,
+                      validator: (value) {
+                        if (value.isEmpty) {
+                          return 'Please enter some text';
+                        }
+                        return null;
+                      },
+                      decoration: InputDecoration(labelText: "Password"),
+                    ),
+                  ],
+                ),
+              ),
+              RaisedButton(
+                  onPressed: () {
+                    // Validate returns true if the form is valid, otherwise false.
+                    if (_formkey.currentState.validate()) {
+                      // If the form is valid, display a snackbar. In the real world,
+                      // you'd often call a server or save the information in a database
+                      _performLogin();
+                    }
+                  },
+                  child: Text("Submit"))
+            ],
+          ),
         ),
-      ),
+        RaisedButton(
+            onPressed: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => RegisterPage()));
+            },
+            child: Text("Registreer"))
+      ])),
     );
   }
 }
@@ -76,6 +134,11 @@ class RegisterPage extends StatelessWidget {
   }
 }
 
+class LoginPage extends State<_LoginPageState> {
+  @override
+  Widget build(BuildContext context) {}
+}
+
 class _LoginPageState extends StatefulWidget {
   _LoginPageState({Key key, this.title, this.username, this.password})
       : super(key: key);
@@ -86,104 +149,10 @@ class _LoginPageState extends StatefulWidget {
   LoginPage createState() => LoginPage();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  var text = "Press the + button to go to the next page.";
-
-  @override
-  Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
-    return Scaffold(
-        appBar: AppBar(
-          // Here we take the value from the MyHomePage object that was created by
-          // the App.build method, and use it to set our appbar title.
-          title: Text(widget.title),
-        ),
-        body: Center(
-            // Center is a layout widget. It takes a single child and positions it
-            // in the middle of the parent.
-            // Column is also a layout widget. It takes a list of children and
-            // arranges them vertically. By default, it sizes itself to fit its
-            // children horizontally, and tries to be as tall as its parent.
-            //
-            // Invoke "debug painting" (press "p" in the console, choose the
-            // "Toggle Debug Paint" action from the Flutter Inspector in Android
-            // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
-            // to see the wireframe for each widget.
-            //
-            // Column has various properties to control how it sizes itself and
-            // how it positions its children. Here we use mainAxisAlignment to
-            // center the children vertically; the main axis here is the vertical
-            // axis because Columns are vertical (the cross axis would be
-            // horizontal).
-            child: new Container(
-                child: new Column(children: [
-          Container(
-            child: RaisedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => SecondRoute()),
-                );
-              },
-              child: Text("Next Page"),
-            ),
-          ),
-          Container(
-            child: RaisedButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => ThirdRoute()),
-                  );
-                },
-                child: Text("Third Page")),
-          ),
-          new Container(child: Image.asset('assets/splendid.jpg'))
-        ]))
-
-            // This trailing comma makes auto-formatting nicer for build methods.
-            ));
-  }
-}
-
-class SecondRoute extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(title: Text("Page Two!")),
-        body: Center(
-          child: RaisedButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            child: Text("Go back NOW."),
-          ),
-        ));
-  }
-}
-
-class ThirdRoute extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(title: Text("Page three lol")),
-        body: Center(
-          child: RaisedButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              child: Text("Return......")),
-        ));
-  }
-}
-
 class MyStatefulWidget extends StatefulWidget {
-  MyStatefulWidget({Key key}) : super(key: key);
+  final int userId;
+  
+  MyStatefulWidget({Key key, @required this.userId}) : super(key: key);
 
   @override
   _MyStatefulWidgetState createState() => _MyStatefulWidgetState();
@@ -196,31 +165,12 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   List<Widget> _widgetOptions(BuildContext context) {
     return <Widget>[
       Text(
-        'Index 1: Business',
+        'Welkom, user ${widget.userId}',
         style: optionStyle,
       ),
       Text(
         'Index 2: School',
         style: optionStyle,
-      ),
-      Scaffold(
-        body: Center(
-            child: Column(children: <Widget>[
-          RaisedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => _LoginPageState()),
-                );
-              },
-              child: Text("Log in")),
-          RaisedButton(
-              onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => RegisterPage()));
-              },
-              child: Text("Registreer"))
-        ])),
       )
     ];
   }
