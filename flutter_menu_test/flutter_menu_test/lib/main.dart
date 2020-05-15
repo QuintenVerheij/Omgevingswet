@@ -1,13 +1,11 @@
 import 'dart:convert';
 
-
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_menu_test/models/Misc/messageModels.dart';
 import 'package:http/http.dart' as http;
 import 'models/Auth/authModels.dart';
 import 'package:flutter_menu_test/homepage.dart';
-
 
 Future<void> main() async {
   runApp(MyApp());
@@ -22,7 +20,6 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: MyHomePage(),
-
     );
   }
 }
@@ -37,7 +34,6 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   final _formkey = GlobalKey<FormState>();
 
-
   final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
 
@@ -50,19 +46,19 @@ class _MyHomePageState extends State<MyHomePage> {
     var url = "http://10.0.2.2:8080/auth/login";
     var body = jsonEncode(AuthorizationTokenRequest(username, password));
 
-    http.post(url,
-      headers: {"Content-Type": "application/json"},
-      body: body
-      ).then((http.Response res) {
-        print("response code" + res.statusCode.toString());
-        print("Response body" + res.body);
-        var m = Message.fromJson(jsonDecode(res.body));
-        if(m.successful){
-          Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => (MyStatefulWidget(userId: m.userId))));
-        }
-      });
-
+    http
+        .post(url, headers: {"Content-Type": "application/json"}, body: body)
+        .then((http.Response res) {
+      print("response code" + res.statusCode.toString());
+      print("Response body" + res.body);
+      var m = Message.fromJson(jsonDecode(res.body));
+      if (m.successful) {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => (MyStatefulWidget(userId: m.userId))));
+      }
+    });
   }
 
   @override
@@ -134,8 +130,94 @@ class RegisterPage extends StatelessWidget {
           title: Text("Registreer"),
         ),
         body: Center(
-          child: Text("Hello"),
-        ));
+            child: Column(
+          children: <Widget>[
+            TextFormField(
+              validator: (value) {
+                if (value.isEmpty) {
+                  return 'Please enter some text';
+                }
+                return null;
+              },
+              decoration: InputDecoration(labelText: "Username"),
+            ),
+            TextFormField(
+              //obscureText: true,
+              validator: (value) {
+                if (value.isEmpty) {
+                  return 'Please enter some text';
+                }
+                return null;
+              },
+              decoration: InputDecoration(labelText: "Email Address"),
+            ),
+            TextFormField(
+              //obscureText: true,
+              validator: (value) {
+                if (value.isEmpty) {
+                  return 'Please enter some text';
+                }
+                return null;
+              },
+              decoration: InputDecoration(labelText: "Password"),
+            ),
+            TextFormField(
+              //obscureText: true,
+              validator: (value) {
+                if (value.isEmpty) {
+                  return 'Please enter some text';
+                }
+                return null;
+              },
+              decoration: InputDecoration(labelText: "City"),
+            ),
+            TextFormField(
+              //obscureText: true,
+              validator: (value) {
+                if (value.isEmpty) {
+                  return 'Please enter some text';
+                }
+                return null;
+              },
+              decoration: InputDecoration(labelText: "Street"),
+            ),
+            TextFormField(
+              //obscureText: true,
+              validator: (value) {
+                if (value.isEmpty) {
+                  return 'Please enter some text';
+                }
+                return null;
+              },
+              decoration: InputDecoration(labelText: "House Number"),
+            ),
+            TextFormField(
+              //obscureText: true,
+              validator: (value) {
+                if (value.isEmpty) {
+                  return 'Please enter some text';
+                }
+                return null;
+              },
+              decoration: InputDecoration(labelText: "House Number Addition"),
+            ),
+            TextFormField(
+              //obscureText: true,
+              validator: (value) {
+                if (value.isEmpty) {
+                  return 'Please enter some text';
+                }
+                return null;
+              },
+              decoration: InputDecoration(labelText: "Postal Code"),
+            ),
+            RaisedButton(
+                onPressed: () {
+                  print("yuh");
+                },
+                child: Text("Registreer"))
+          ],
+        )));
   }
 }
 
@@ -153,9 +235,10 @@ class _LoginPageState extends StatefulWidget {
   @override
   LoginPage createState() => LoginPage();
 }
+
 class MyStatefulWidget extends StatefulWidget {
   final int userId;
-  
+
   MyStatefulWidget({Key key, @required this.userId}) : super(key: key);
 
   @override
@@ -178,7 +261,6 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
       )
     ];
   }
-
 
   void _onItemTapped(int index) {
     setState(() {
