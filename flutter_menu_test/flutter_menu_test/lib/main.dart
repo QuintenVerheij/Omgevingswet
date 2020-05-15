@@ -1,13 +1,17 @@
 import 'dart:convert';
 
+
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_menu_test/models/Misc/messageModels.dart';
 import 'package:http/http.dart' as http;
-
 import 'models/Auth/authModels.dart';
+import 'package:flutter_menu_test/homepage.dart';
 
-void main() => runApp(MyApp());
+
+Future<void> main() async {
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   @override
@@ -18,6 +22,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: MyHomePage(),
+
     );
   }
 }
@@ -25,13 +30,13 @@ class MyApp extends StatelessWidget {
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key}) : super(key: key);
   final String title = "Login";
-
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
   final _formkey = GlobalKey<FormState>();
+
 
   final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
@@ -148,7 +153,6 @@ class _LoginPageState extends StatefulWidget {
   @override
   LoginPage createState() => LoginPage();
 }
-
 class MyStatefulWidget extends StatefulWidget {
   final int userId;
   
@@ -174,6 +178,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
       )
     ];
   }
+
 
   void _onItemTapped(int index) {
     setState(() {

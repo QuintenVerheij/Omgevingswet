@@ -19,6 +19,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+
   analyzer: ^0.39.8
   build: ^1.3.0
   build_config: ^0.4.2
@@ -26,6 +27,10 @@ dependencies:
   meta: ^1.1.8
   source_gen: ^0.9.5
   http: ^0.12.1
+
+
+  permission_handler: ^4.0.0
+  flutter_unity_widget: ^0.1.6+5
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -51,6 +56,7 @@ flutter:
   uses-material-design: true
   assets:
     - assets/splendid.jpg
+    - assets/google_maps_2.jpg
 
   # To add assets to your application, add an assets section, like this:
   # assets:
