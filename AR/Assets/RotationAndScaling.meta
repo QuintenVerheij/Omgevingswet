@@ -1,5 +1,13 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
 guid: 2a37791b93fc27746b24d6bdacdadda6
+=======
+<<<<<<< HEAD:AR/Assets/GoogleMaps/DemoTiles.meta
+guid: 71362da2f136ab2458ce0edabebb13be
+=======
+guid: 2a37791b93fc27746b24d6bdacdadda6
+>>>>>>> master:AR/Assets/RotationAndScaling.meta
+>>>>>>> master
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}
