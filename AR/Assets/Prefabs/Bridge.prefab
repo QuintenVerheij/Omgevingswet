@@ -167,13 +167,15 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3419469240832906560}
+  - component: {fileID: 7642276407597244302}
+  - component: {fileID: 6902528281645187866}
   m_Layer: 0
   m_Name: Bridge
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3419469240832906560
 Transform:
   m_ObjectHideFlags: 0
@@ -191,6 +193,34 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &7642276407597244302
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1814736179089549139}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2.1294699, y: 1.3449874, z: 1}
+  m_Center: {x: -0.001708746, y: -0.37341094, z: 0}
+--- !u!114 &6902528281645187866
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1814736179089549139}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39c1d6416f2d6ad419df753520ddb20e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  highlightPrefab: {fileID: 8435184985971595212, guid: 3bf136307118a454aae15e18800ec27b,
+    type: 3}
+  highlightInstances: []
 --- !u!1 &4267672403126214133
 GameObject:
   m_ObjectHideFlags: 0

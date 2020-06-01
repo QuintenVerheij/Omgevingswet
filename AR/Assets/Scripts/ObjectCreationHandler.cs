@@ -2,19 +2,35 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ObjectSpawner : MonoBehaviour
-{
+public class ObjectCreationHandler : BaseModeInputHandler {
     public int currentIndex;
-    private PlacementIndicator placementIndicator;
 
     public GameObject[] models; //array of instances of models in the scene, modify this array in the inspector
-    
+    public static ObjectCreationHandler Instance { get; private set; }
+    public LayerMask planeLayer;
+    public GameObject placedObjectsParent;
 
-    void Start()
-    {
+    public GameObject uiGroup_addObjects;
+
+    private void Awake() {
+        Instance = this;
+    }
+
+    void Start(){
         OnIndexChange();
-        placementIndicator = FindObjectOfType<PlacementIndicator>();
+    }
 
+    private void OnEnable() {
+        uiGroup_addObjects.SetActive(true);
+    }
+
+    private void OnDisable() {
+        uiGroup_addObjects.SetActive(false);
+    }
+
+    public override void OnPlaneTouchBegin(Vector3 position) {
+        GameObject instance = Instantiate(models[currentIndex], placedObjectsParent.transform);
+        instance.transform.position = position;
     }
 
     //increment the index and update the visibility of the models
@@ -43,13 +59,4 @@ public class ObjectSpawner : MonoBehaviour
             //when disabled, the model will be invisible, and if enabled, will make the model visible again.
         }
     }
-
-    public void Activate() {
-
-        GameObject obj = Instantiate(models[currentIndex],
-                placementIndicator.transform.position, placementIndicator.transform.rotation);
-
-    }
-    
-   
 }

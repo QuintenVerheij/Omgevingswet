@@ -1331,7 +1331,9 @@ namespace LunarConsolePlugin
         #endif // LUNAR_CONSOLE_ENABLED
 
         #region Public API
-
+        public void DisplayConsole() { //functie voor de UI knop. UI knoppen kunnen geen static functies uitvoeren.
+            Show();
+        }
         /// <summary>
         /// Shows the console on top of everything. Does nothing if current platform is not supported or if the plugin is not initialized.
         /// </summary>
