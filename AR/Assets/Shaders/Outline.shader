@@ -36,19 +36,11 @@ Shader "Custom/Outline"
             float4 _OutlineColor;
             float _OutlineWidth;
 
-            float3 calcOffsetByNormal(float3 vertex, float3 normal) {
-                float3 posNormal = normalize(vertex);
-                float newLength = _OutlineWidth * (1 - dot(posNormal, normal) + 1);
-                return vertex * newLength;
-            }
-
             v2f vert (appdata v)
             {
                 v2f o;
                 
-                //float3 offset = normalize(mul((float3x3)unity_ObjectToWorld, v.vertex.xyz) * 100);
-                //float3 offset = mul((float3x3)unity_ObjectToWorld, v.normal);
-                float3 offset = calcOffsetByNormal(mul((float3x3)unity_ObjectToWorld, v.vertex.xyz), v.normal) * 100;
+                float3 offset = normalize(mul((float3x3)unity_ObjectToWorld, v.vertex.xyz) * 100);
                 offset = clamp(offset, -_OutlineWidth, _OutlineWidth);
 
                 float4 vertex = mul(unity_ObjectToWorld, v.vertex);
