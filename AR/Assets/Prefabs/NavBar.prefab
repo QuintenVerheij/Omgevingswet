@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7644267174517449785}
   - component: {fileID: 7644267174517449784}
   - component: {fileID: 7644267174517449783}
+  - component: {fileID: 1349866682573227232}
   m_Layer: 5
   m_Name: NavBar
   m_TagString: Untagged
@@ -104,6 +105,18 @@ MonoBehaviour:
   m_ChildControlHeight: 0
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
+--- !u!114 &1349866682573227232
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7644267174517449781}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04aab7c7ae07ddd4cb670e49efff0822, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7644267175182232579
 GameObject:
   m_ObjectHideFlags: 0
@@ -218,7 +231,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 7644267175182232582}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1349866682573227232}
+        m_MethodName: SceneLoader
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &7644267175182332724
 GameObject:
   m_ObjectHideFlags: 0
@@ -428,7 +452,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 7644267176360049968}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1349866682573227232}
+        m_MethodName: SceneLoader
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &7644267176398634271
 GameObject:
   m_ObjectHideFlags: 0
@@ -543,4 +578,15 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 7644267176398634274}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1349866682573227232}
+        m_MethodName: SceneLoader
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 2
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
