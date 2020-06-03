@@ -1,5 +1,13 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
 guid: d373b4f6b218419499563fa607f2361d
+=======
+<<<<<<< HEAD:AR/Assets/Scripts/LoadScene.cs.meta
+guid: 04aab7c7ae07ddd4cb670e49efff0822
+=======
+guid: d373b4f6b218419499563fa607f2361d
+>>>>>>> master:AR/Assets/Scripts/PlacementIndicator.cs.meta
+>>>>>>> master
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
