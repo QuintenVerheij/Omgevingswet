@@ -7,6 +7,8 @@ public class LoadScene : MonoBehaviour
 {
     public void SceneLoader(int SceneIndex)
     {
-        SceneManager.LoadScene(SceneIndex);
+        if(SceneManager.GetActiveScene().buildIndex != SceneIndex) {
+            SceneManager.LoadScene(SceneIndex);
+        }
     }
 }
