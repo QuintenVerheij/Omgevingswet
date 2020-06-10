@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Networking;
+using UnityEngine.SceneManagement;
 
 public class LoginRequest : MonoBehaviour
 {
@@ -43,12 +44,16 @@ public class LoginRequest : MonoBehaviour
         if (www.isNetworkError || www.isHttpError)
         {
             //Response text if WebRequest gives an error
-            //responseText.text = www.error;
+            responseText.text = www.error;
             Debug.Log(www.error);
         }
         else
         {
             output = AuthorizationTokenReturn.fromJson(www.downloadHandler.text);
+            if (output.successful)
+            {
+                SceneManager.LoadScene(2);
+            }
             responseText.text = output.message;
             Debug.Log(output);
         }
