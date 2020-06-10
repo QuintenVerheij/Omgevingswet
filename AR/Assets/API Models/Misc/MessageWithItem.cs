@@ -10,7 +10,7 @@ public class MessageWithItem<T> : IAPIModel {
         this.item = item;
     }
 
-    public override IAPIModel fromJson(string json){
+    public static IAPIModel fromJson(string json){
         return JsonUtility.FromJson<MessageWithItem<T>>(json);
     }
 }

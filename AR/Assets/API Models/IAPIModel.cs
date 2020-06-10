@@ -11,6 +11,5 @@ public abstract class IAPIModel
         return jsonRaw;
     }
 
-    public abstract IAPIModel fromJson(string json);
 
 }

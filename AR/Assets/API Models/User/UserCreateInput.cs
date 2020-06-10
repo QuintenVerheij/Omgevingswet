@@ -14,7 +14,7 @@ public class UserCreateInput : IAPIModel {
         this.address = address;
     }
 
-    public override IAPIModel fromJson(string json){
+    public static IAPIModel fromJson(string json){
         return JsonUtility.FromJson<UserCreateInput>(json);
     }
 }

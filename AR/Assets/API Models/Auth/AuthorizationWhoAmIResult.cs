@@ -12,7 +12,7 @@ public class AuthorizationWhoAmIResult: IAPIModel {
         this.expireTime = expireTime;
     }
 
-    public override IAPIModel fromJson(string json){
+    public static IAPIModel fromJson(string json){
         return JsonUtility.FromJson<AuthorizationWhoAmIResult>(json);
     }
 }

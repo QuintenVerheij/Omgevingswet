@@ -18,7 +18,7 @@ public class AddressCreateInput : IAPIModel {
         this.postalCode = postalCode;
     }
 
-    public override IAPIModel fromJson(string json){
+    public static IAPIModel fromJson(string json){
         return JsonUtility.FromJson<AddressCreateInput>(json);
     }
 }

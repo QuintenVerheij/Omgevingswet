@@ -20,7 +20,7 @@ public class AuthRoleSpecification: IAPIModel{
         this.allowedDelete = allowedDelete;
     }
 
-    public override IAPIModel fromJson(string json){
+    public static IAPIModel fromJson(string json){
         return JsonUtility.FromJson<AuthRoleSpecification>(json);
     }
 }

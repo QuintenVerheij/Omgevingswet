@@ -14,7 +14,7 @@ public class UserOutput : IAPIModel {
         this.address = address;
     }
 
-    public override IAPIModel fromJson(string json){
+    public static IAPIModel fromJson(string json){
         return JsonUtility.FromJson<UserOutput>(json);
     }
 }

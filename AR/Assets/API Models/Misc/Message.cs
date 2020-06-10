@@ -22,7 +22,7 @@ public class Message : IAPIModel {
         this.userId = userId;
     }
 
-    public override IAPIModel fromJson(string json){
+    public static IAPIModel fromJson(string json){
         return JsonUtility.FromJson<Message>(json);
     }
 }
