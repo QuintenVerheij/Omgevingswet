@@ -1,5 +1,13 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
 guid: 88e8080e4f01ed44da75494d65d5068e
+=======
+<<<<<<< HEAD:AR/Assets/Prefabs/NavBar.prefab.meta
+guid: 1685a87a8b9cc1149a183fdf09faa19c
+=======
+guid: 857d6b13426833c4d81c42fa28911678
+>>>>>>> master:AR/Assets/Prefabs/Selection.prefab.meta
+>>>>>>> Mastertemp
 PrefabImporter:
   externalObjects: {}
   userData: 

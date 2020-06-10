@@ -1,5 +1,13 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
 guid: f6c9be89daa5ea34eaa31bb005102aee
+=======
+<<<<<<< HEAD:AR/Assets/GoogleMaps/Editor.meta
+guid: 0f776a45a236090448bc0c5d7130d014
+=======
+guid: f6c9be89daa5ea34eaa31bb005102aee
+>>>>>>> master:AR/Assets/XR/Loaders.meta
+>>>>>>> master
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}

@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:AR/Assets/Prefabs/EventSystem.prefab.meta
 guid: f1c2a2ab0af5ae144a097b5edb24798a
+=======
+guid: fe96ba0e664c09d4ea434f40e29b8f8f
+>>>>>>> master:AR/Assets/Prefabs/Model.prefab.meta
 PrefabImporter:
   externalObjects: {}
   userData: 
