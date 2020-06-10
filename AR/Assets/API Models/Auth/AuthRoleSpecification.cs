@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -23,4 +24,15 @@ public class AuthRoleSpecification: IAPIModel{
     public static IAPIModel fromJson(string json){
         return JsonUtility.FromJson<AuthRoleSpecification>(json);
     }
+
+    public override string ToString() {
+        return String.Format("role: {0}, allowedInfo: {1},allowedCreate: {2},allowedRead: {3},allowedUpdate: {4}, allowedDelete: {5}",
+        role.ToString("g"),
+        string.Join(",", this.allowedInfo),
+        string.Join(",", this.allowedCreate),
+        string.Join(",", this.allowedRead),
+        string.Join(",", this.allowedUpdate),
+        string.Join(",", this.allowedDelete));
+    }
+
 }

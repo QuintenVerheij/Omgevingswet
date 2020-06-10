@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class UserOutputNoAddress : IAPIModel {
@@ -12,5 +13,11 @@ public class UserOutputNoAddress : IAPIModel {
 
     public static IAPIModel fromJson(string json){
         return JsonUtility.FromJson<UserOutputNoAddress>(json);
+    }
+
+    public override string ToString() {
+        return String.Format("username: {0}, email: {1}",
+        this.username,
+        this.email);
     }
 }

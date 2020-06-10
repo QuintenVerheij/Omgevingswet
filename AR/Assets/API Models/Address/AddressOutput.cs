@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -23,5 +24,16 @@ public class AddressOutput : IAPIModel {
 
     public static IAPIModel fromJson(string json){
         return JsonUtility.FromJson<AddressOutput>(json);
+    }
+
+    public override string ToString() {
+        return String.Format("id: {0}, city: {1}, street: {2}, houseNumber: {3}, houseNumberAddition: {4}, postalCode: {5}, Users: {6}",
+        this.id,
+        this.city,
+        this.street,
+        this.houseNumber,
+        this.houseNumberAddition,
+        this.postalCode,
+        this.users);
     }
 }

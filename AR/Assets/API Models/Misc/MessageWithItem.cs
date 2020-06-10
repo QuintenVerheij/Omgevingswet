@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class MessageWithItem<T> : IAPIModel {
@@ -12,5 +13,11 @@ public class MessageWithItem<T> : IAPIModel {
 
     public static IAPIModel fromJson(string json){
         return JsonUtility.FromJson<MessageWithItem<T>>(json);
+    }
+
+    public override string ToString() {
+        return String.Format("message: {0}, item: {1}",
+        this.message.ToString(),
+        this.item.ToString());
     }
 }
