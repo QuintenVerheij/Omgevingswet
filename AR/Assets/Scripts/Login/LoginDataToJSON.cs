@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class LoginDataToJSON
 {
-    public string username = "";
+    public string mail = "";
     public string password = "";
 }
 
