@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 public class UserCreateInput : IAPIModel {
     public string username;
@@ -16,5 +17,12 @@ public class UserCreateInput : IAPIModel {
 
     public static IAPIModel fromJson(string json){
         return JsonUtility.FromJson<UserCreateInput>(json);
+    }
+
+    public override string ToString() {
+        return String.Format("username: {0}, email: {1}, password: {2}",
+        this.username,
+        this.email,
+        this.password);
     }
 }

@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class UserOutput : IAPIModel {
@@ -16,5 +18,13 @@ public class UserOutput : IAPIModel {
 
     public static IAPIModel fromJson(string json){
         return JsonUtility.FromJson<UserOutput>(json);
+    }
+
+    public override string ToString() {
+        return String.Format("id: {0}, username: {1}, email: {2}, address: {3}",
+        this.id,
+        this.username,
+        this.email,
+        string.Join(",", this.address.Select<AddressCreateInput, string>(x => x.ToString())));
     }
 }

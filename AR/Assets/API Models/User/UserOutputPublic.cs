@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class UserOutputPublic: IAPIModel {
@@ -12,5 +13,11 @@ public class UserOutputPublic: IAPIModel {
 
     public static IAPIModel fromJson(string json){
         return JsonUtility.FromJson<UserOutputPublic>(json);
+    }
+
+    public override string ToString() {
+        return String.Format("id: {0}, username: {1}",
+        this.id,
+        this.username);
     }
 }
