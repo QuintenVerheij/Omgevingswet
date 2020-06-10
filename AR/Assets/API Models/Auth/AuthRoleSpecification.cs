@@ -10,6 +10,16 @@ public class AuthRoleSpecification: IAPIModel{
     public List<string> allowedUpdate;
     public List<string> allowedDelete;
 
+    public AuthRoleSpecification(AuthorizationRole role, List<string> allowedInfo, List<string> allowedCreate, List<string> allowedRead, List<string> allowedUpdate, List<string> allowedDelete)
+    {
+        this.role = role;
+        this.allowedInfo = allowedInfo;
+        this.allowedCreate = allowedCreate;
+        this.allowedRead = allowedRead;
+        this.allowedUpdate = allowedUpdate;
+        this.allowedDelete = allowedDelete;
+    }
+
     public override IAPIModel fromJson(string json){
         return JsonUtility.FromJson<AuthRoleSpecification>(json);
     }
