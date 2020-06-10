@@ -8,6 +8,9 @@ public class LoginRequest : MonoBehaviour
 {
     public InputField userName;
     public InputField password;
+    public Text responseText;
+
+    public AuthorizationTokenReturn output;
 
     public LoginDataToJSON data;
 
@@ -22,11 +25,13 @@ public class LoginRequest : MonoBehaviour
     {
         string url = "localhost:8080/auth/login";
 
-        data = new LoginDataToJSON();
-        data.mail = userName.text;
-        data.password = password.text;
-        string body = JsonUtility.ToJson(data);
-        byte[] jsonToSend = new System.Text.UTF8Encoding().GetBytes(body);
+        //data = new LoginDataToJSON();
+        //data.mail = userName.text;
+        //data.password = password.text;
+        //string body = JsonUtility.ToJson(data);
+        //byte[] jsonToSend = new System.Text.UTF8Encoding().GetBytes(body);
+
+        byte[] jsonToSend = new AuthorizationTokenRequest(userName.text, password.text).toJsonRaw();
 
         UnityWebRequest www = new UnityWebRequest(url, "POST");
         www.uploadHandler = (UploadHandler)new UploadHandlerRaw(jsonToSend);
@@ -37,12 +42,15 @@ public class LoginRequest : MonoBehaviour
 
         if (www.isNetworkError || www.isHttpError)
         {
-            Debug.Log(body);
+            //Response text if WebRequest gives an error
+            //responseText.text = www.error;
             Debug.Log(www.error);
         }
         else
         {
-            Debug.Log("Login Complete");
+            output = AuthorizationTokenReturn.fromJson(www.downloadHandler.text);
+            responseText.text = output.message;
+            Debug.Log(output);
         }
         
     }
