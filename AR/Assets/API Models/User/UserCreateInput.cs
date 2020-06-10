@@ -20,9 +20,10 @@ public class UserCreateInput : IAPIModel {
     }
 
     public override string ToString() {
-        return String.Format("username: {0}, email: {1}, password: {2}",
+        return String.Format("username: {0}, email: {1}, password: {2}, address: {3}",
         this.username,
         this.email,
-        this.password);
+        this.password,
+        this);
     }
 }
