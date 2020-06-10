@@ -11,7 +11,7 @@ public class AuthorizationTokenRequest : IAPIModel {
         this.password = password;
     }
 
-    public override IAPIModel fromJson(string json){
+    public static IAPIModel fromJson(string json){
         return JsonUtility.FromJson<AuthorizationTokenRequest>(json);
     }
 }

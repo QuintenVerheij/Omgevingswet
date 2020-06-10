@@ -10,7 +10,7 @@ public class UserOutputPublic: IAPIModel {
         this.username = username;
     }
 
-    public override IAPIModel fromJson(string json){
+    public static IAPIModel fromJson(string json){
         return JsonUtility.FromJson<UserOutputPublic>(json);
     }
 }

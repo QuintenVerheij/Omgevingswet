@@ -10,7 +10,7 @@ public class AuthorizedAction<T>:IAPIModel {
         this.input = input;
     }
 
-    public override IAPIModel fromJson(string json){
+    public static IAPIModel fromJson(string json){
         return JsonUtility.FromJson<AuthorizedAction<T>>(json);
     }
 }

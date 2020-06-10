@@ -8,7 +8,7 @@ public class AuthorizationToken : IAPIModel {
         this.token = token;
     }
 
-    public override IAPIModel fromJson(string json){
+    public static IAPIModel fromJson(string json){
         return JsonUtility.FromJson<AuthorizationToken>(json);
     }
 }

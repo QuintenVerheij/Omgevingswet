@@ -11,7 +11,7 @@ public class UserAddAddressInput: IAPIModel {
         this.addressId = addressId;
     }
 
-    public override IAPIModel fromJson(string json){
+    public static IAPIModel fromJson(string json){
         return JsonUtility.FromJson<UserAddAddressInput>(json);
     }
 }

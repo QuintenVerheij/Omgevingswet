@@ -10,7 +10,7 @@ public class UserOutputNoAddress : IAPIModel {
         this.email = email;
     }
 
-    public override IAPIModel fromJson(string json){
+    public static IAPIModel fromJson(string json){
         return JsonUtility.FromJson<UserOutputNoAddress>(json);
     }
 }
