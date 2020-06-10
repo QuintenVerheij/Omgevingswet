@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
+using UnityEngine.Networking;
 using System;
+using System.Collections;
 
 public class CollectForm : MonoBehaviour
 {
@@ -69,6 +71,24 @@ public class CollectForm : MonoBehaviour
         );
         Debug.Log(res.ToString());
         return res;
+    }
+    public IEnumerator submitBE() {
+        UserCreateInput res = new UserCreateInput(
+            formCollector.Username,
+            formCollector.Password,
+            formCollector.Email,
+            new AddressCreateInput(
+                formCollector.City,
+                formCollector.Street,
+                int.Parse(formCollector.Number),
+                formCollector.NumExt,
+                formCollector.PostCode
+            )
+            WWWForm form = new WWWForm();
+            form.AddField();
+        );
+        Debug.Log(res.ToString());
+
     }
 }
 public class Form {
