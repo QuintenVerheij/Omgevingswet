@@ -10,6 +10,17 @@ public class AddressOutput : IAPIModel {
     public string postalCode;
     public List<UserOutputNoAddress> users;
 
+    public AddressOutput(int id, string city, string street, int houseNumber, string houseNumberAddition, string postalCode, List<UserOutputNoAddress> users)
+    {
+        this.id = id;
+        this.city = city;
+        this.street = street;
+        this.houseNumber = houseNumber;
+        this.houseNumberAddition = houseNumberAddition;
+        this.postalCode = postalCode;
+        this.users = users;
+    }
+
     public override IAPIModel fromJson(string json){
         return JsonUtility.FromJson<AddressOutput>(json);
     }

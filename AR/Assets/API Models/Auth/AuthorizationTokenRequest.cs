@@ -5,6 +5,12 @@ public class AuthorizationTokenRequest : IAPIModel {
 
     public string password;
 
+    public AuthorizationTokenRequest(string mail, string password)
+    {
+        this.mail = mail;
+        this.password = password;
+    }
+
     public override IAPIModel fromJson(string json){
         return JsonUtility.FromJson<AuthorizationTokenRequest>(json);
     }

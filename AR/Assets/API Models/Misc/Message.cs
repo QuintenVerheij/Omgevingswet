@@ -12,6 +12,16 @@ public class Message : IAPIModel {
 
     public int userId;
 
+    public Message(bool successful, MessageType messageType, AuthorizationType authorizationType, string message, int targetId, int userId)
+    {
+        this.successful = successful;
+        this.messageType = messageType;
+        this.authorizationType = authorizationType;
+        this.message = message;
+        this.targetId = targetId;
+        this.userId = userId;
+    }
+
     public override IAPIModel fromJson(string json){
         return JsonUtility.FromJson<Message>(json);
     }

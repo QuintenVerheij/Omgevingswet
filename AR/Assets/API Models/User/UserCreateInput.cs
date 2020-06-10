@@ -6,6 +6,14 @@ public class UserCreateInput : IAPIModel {
 
     public AddressCreateInput address;
 
+    public UserCreateInput(string username, string email, string password, AddressCreateInput address)
+    {
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.address = address;
+    }
+
     public override IAPIModel fromJson(string json){
         return JsonUtility.FromJson<UserCreateInput>(json);
     }
