@@ -154,10 +154,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _map: {fileID: 67158619}
   _locationStrings:
-  - 37.7648, -122.463
-  - 37.8045, -122.2714
-  - 37.859, -122.4855
-  - 35.658611111111, 139.74555555556
+  - 52.0130589, 4.354478
+  - 52.008554, 4.363259
+  - 52.01272, 4.359073
+  - 52.0120465, 4.3600545
   _spawnScale: 10
   _markerPrefab: {fileID: 1839187062704024, guid: 9b5b1b761a8994c07affd0a05396633b,
     type: 3}
@@ -192,8 +192,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _options:
     locationOptions:
-      latitudeLongitude: 37.7648, -122.463
-      zoom: 10
+      latitudeLongitude: 52.0105694, 4.3570895
+      zoom: 15
     extentOptions:
       extentType: 0
       defaultExtents:
@@ -221,12 +221,12 @@ MonoBehaviour:
   _initializeOnStart: 1
   _imagery:
     _layerProperty:
-      sourceType: 4
+      sourceType: 0
       sourceOptions:
         isActive: 1
         layerSource:
           Name: Satellite
-          Id: mapbox.satellite
+          Id: mapbox://styles/mapbox/streets-v10
           Modified: 
           UserName: 
       rasterOptions:
@@ -243,7 +243,7 @@ MonoBehaviour:
           Id: mapbox.terrain-rgb
           Modified: 
           UserName: 
-      elevationLayerType: 1
+      elevationLayerType: 0
       requiredOptions:
         exaggerationFactor: 1
       colliderOptions:
@@ -704,6 +704,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+--- !u!114 &1051569000 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 114850405259029928, guid: 00f5bf1ff996842fc82384f8f686fda6,
+    type: 3}
+  m_PrefabInstance: {fileID: 1446189659}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9bce9ff37f5964623a657f4003af54f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1147823754
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -913,9 +925,49 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 114023684558016336, guid: 00f5bf1ff996842fc82384f8f686fda6,
         type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114023684558016336, guid: 00f5bf1ff996842fc82384f8f686fda6,
+        type: 3}
       propertyPath: m_Value
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 114023684558016336, guid: 00f5bf1ff996842fc82384f8f686fda6,
+        type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 114023684558016336, guid: 00f5bf1ff996842fc82384f8f686fda6,
+        type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114023684558016336, guid: 00f5bf1ff996842fc82384f8f686fda6,
+        type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 67158619}
+    - target: {fileID: 114023684558016336, guid: 00f5bf1ff996842fc82384f8f686fda6,
+        type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SetZoom
+      objectReference: {fileID: 0}
+    - target: {fileID: 114023684558016336, guid: 00f5bf1ff996842fc82384f8f686fda6,
+        type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 114632240689637620, guid: 00f5bf1ff996842fc82384f8f686fda6,
+        type: 3}
+      propertyPath: _forwardGeocoder
+      value: 
+      objectReference: {fileID: 1051569000}
+    - target: {fileID: 114632240689637620, guid: 00f5bf1ff996842fc82384f8f686fda6,
+        type: 3}
+      propertyPath: _zoomSlider
+      value: 
+      objectReference: {fileID: 1694099400}
     - target: {fileID: 224178813210018432, guid: 00f5bf1ff996842fc82384f8f686fda6,
         type: 3}
       propertyPath: m_AnchorMin.y
@@ -1093,6 +1145,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 00f5bf1ff996842fc82384f8f686fda6, type: 3}
+--- !u!114 &1694099400 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 114023684558016336, guid: 00f5bf1ff996842fc82384f8f686fda6,
+    type: 3}
+  m_PrefabInstance: {fileID: 1446189659}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &620593393198633738
 PrefabInstance:
   m_ObjectHideFlags: 0
