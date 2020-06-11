@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 67158618}
   - component: {fileID: 67158617}
   - component: {fileID: 67158621}
+  - component: {fileID: 67158622}
   m_Layer: 0
   m_Name: Map
   m_TagString: Untagged
@@ -336,6 +337,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _map: {fileID: 67158619}
+--- !u!114 &67158622
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 67158616}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27d45259afef16648a2db262b4375517, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  map: {fileID: 67158619}
+  location: {fileID: 1285452433}
 --- !u!1 &167458958
 GameObject:
   m_ObjectHideFlags: 0
@@ -1881,7 +1896,6 @@ GameObject:
   - component: {fileID: 1935545515}
   - component: {fileID: 1935545514}
   - component: {fileID: 1935545513}
-  - component: {fileID: 1935545516}
   m_Layer: 5
   m_Name: CurrentLocation
   m_TagString: Untagged
@@ -1906,7 +1920,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
   m_AnchoredPosition: {x: -30, y: 200}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 200, y: 200}
   m_Pivot: {x: 1, y: 0}
 --- !u!114 &1935545513
 MonoBehaviour:
@@ -1950,7 +1964,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1935545515}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 67158622}
+        m_MethodName: GetCurrentLocation
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!222 &1935545514
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1985,20 +2010,6 @@ MonoBehaviour:
     y: 0
     width: 1
     height: 1
---- !u!114 &1935545516
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1935545511}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b45b6cb0c94914eb6a1fac86abfc6aba, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _map: {fileID: 67158619}
-  timeTakenDuringLerp: 1
 --- !u!224 &2031544694 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5916756926224834911, guid: d08bb20d9a3670c47865fdcdd622b102,
