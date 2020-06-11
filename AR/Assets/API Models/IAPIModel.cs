@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Newtonsoft.json.JsonConvert;
+using Newtonsoft.Json;
 
 public abstract class IAPIModel
 {
