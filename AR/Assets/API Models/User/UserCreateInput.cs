@@ -19,11 +19,11 @@ public class UserCreateInput : IAPIModel {
         return JsonUtility.FromJson<UserCreateInput>(json);
     }
 
-public override string ToString() {
+    public override string ToString() {
         return String.Format("username: {0}, email: {1}, password: {2}, address: {3}",
         this.username,
         this.email,
         this.password,
-        this.address.ToString());
+        this);
     }
 }
