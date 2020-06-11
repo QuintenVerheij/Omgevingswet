@@ -2608,7 +2608,7 @@ MonoBehaviour:
   numbInputField: {fileID: 602375704}
   nextInputField: {fileID: 1891426147}
   postInputField: {fileID: 434954486}
-  submitButton: {fileID: 2021592689}
+  url: localhost:8080/user/create
 --- !u!1 &1671390418
 GameObject:
   m_ObjectHideFlags: 0
@@ -3220,7 +3220,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2021592690}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 1
 --- !u!114 &2021592690
 MonoBehaviour:
   m_ObjectHideFlags: 0

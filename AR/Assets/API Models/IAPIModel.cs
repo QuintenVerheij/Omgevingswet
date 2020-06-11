@@ -7,7 +7,7 @@ public abstract class IAPIModel
     public byte[] toJsonRaw() {
         string json = JsonUtility.ToJson(this);
         byte[] jsonRaw = new System.Text.UTF8Encoding().GetBytes(json);
-
+        Debug.Log(json);
         return jsonRaw;
     }
 
