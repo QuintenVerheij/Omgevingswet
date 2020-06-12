@@ -11,6 +11,7 @@ public class ObjectCreationHandler : BaseModeInputHandler {
     public GameObject placedObjectsParent;
 
     public GameObject uiGroup_addObjects;
+    public GridDisplay gridDisplay;
 
     private void Awake() {
         Instance = this;

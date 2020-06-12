@@ -15,9 +15,7 @@ public class ModelSlotManager : MonoBehaviour{
         Instance = this;
     }
 
-    // Start is called before the first frame update
-    void Start(){
-        //slots = FindObjectsOfType<ModelSlot>();
+    private void OnEnable() {
         UpdateSlots();
     }
 

@@ -30,22 +30,6 @@ public class ModelSlot : MonoBehaviour
         }
     }
 
-    /*public void OnPostRender() {
-        if (tempRenderTexture) {
-            print("ONPOSTRENDER TEST");
-            int width = tempRenderTexture.width;
-            int height = tempRenderTexture.height;
-            Texture2D texture = new Texture2D(width, height, TextureFormat.RGB24, false);
-
-            RenderTexture.active = tempRenderTexture;
-            texture.ReadPixels(new Rect(0, 0, width, height), 0, 0);
-            image.texture = texture;
-
-            RenderTexture.active = null;
-            tempRenderTexture = null;
-        }    
-    }*/
-
     public void Select() {
         if(modelIndex >= 0) {
             ObjectCreationHandler.Instance.currentIndex = modelIndex;

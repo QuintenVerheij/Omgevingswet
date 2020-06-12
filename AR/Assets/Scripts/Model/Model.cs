@@ -15,8 +15,8 @@ public class Model : MonoBehaviour{
 	private List<GameObject> highlightInstances = new List<GameObject>(); //instances of highlight prefab. In order to access them they need to be stored in a list
 
 	[Header("Thumbnail Settings")]
-	public float thumbnailDistance;
-	public Vector3 thumbnailOrientation;
+	public float thumbnailDistance = 2;
+	public Vector3 thumbnailOrientation = new Vector3(0,0,0);
 
 	private void CreateHighlightObject(MeshFilter parentMeshFilter) { 
 		GameObject copy = Instantiate(highlightPrefab, parentMeshFilter.transform); //creates an instance of the highlight prefab

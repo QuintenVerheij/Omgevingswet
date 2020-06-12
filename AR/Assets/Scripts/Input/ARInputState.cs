@@ -90,23 +90,28 @@ public class ARInputState : MonoBehaviour
             TouchLifespan touch = storedTouches[keys[0]];
             if(touch.current.phase == TouchPhase.Began || touch.current.phase == TouchPhase.Moved) {
                 Ray ray = Camera.main.ScreenPointToRay(touch.current.position); //convert the touch position on the screen to a ray
-                RaycastHit hit;
+                RaycastHit[] hits = Physics.RaycastAll(ray, collisionPlaneMask);
 
-                if (Physics.Raycast(ray, out hit, collisionPlaneMask)) {
-                    if (touch.current.phase == TouchPhase.Began) {
-                        //update touch data
-                        touch.hasHitPlane = true;
-                        touch.firstPlaneHitPos = hit.point;
-                        touch.lastPlaneHitPos = hit.point;
+                for(int i = 0; i < hits.Length; i++) {
+                    RaycastHit hit = hits[i];
+                    if (hit.transform.gameObject.activeInHierarchy) {
+                        if (touch.current.phase == TouchPhase.Began) {
+                            //update touch data
+                            touch.hasHitPlane = true;
+                            touch.firstPlaneHitPos = hit.point;
+                            touch.lastPlaneHitPos = hit.point;
 
-                        currentHandler.OnPlaneTouchBegin(touch.firstPlaneHitPos); //execute event
-                    }
-                    else if (touch.current.phase == TouchPhase.Moved && touch.hasHitPlane) {
-                        Vector3 delta = hit.point - touch.lastPlaneHitPos;
-                        touch.lastPlaneHitPos = hit.point;
-                        currentHandler.OnPlaneTouchMove(delta); //execute event
+                            currentHandler.OnPlaneTouchBegin(touch.firstPlaneHitPos); //execute event
+                        }
+                        else if (touch.current.phase == TouchPhase.Moved && touch.hasHitPlane) {
+                            Vector3 delta = hit.point - touch.lastPlaneHitPos;
+                            touch.lastPlaneHitPos = hit.point;
+                            currentHandler.OnPlaneTouchMove(delta); //execute event
+                        }
+                        break;
                     }
                 }
+                
             }
 
             if(touch.current.phase == TouchPhase.Ended || touch.current.phase == TouchPhase.Canceled) {
