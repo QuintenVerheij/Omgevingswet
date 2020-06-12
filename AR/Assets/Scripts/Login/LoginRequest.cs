@@ -34,7 +34,7 @@ public class LoginRequest : MonoBehaviour
         www.uploadHandler = (UploadHandler)new UploadHandlerRaw(jsonToSend);
         www.downloadHandler = (DownloadHandler)new DownloadHandlerBuffer();
         www.SetRequestHeader("Content-Type", "application/json");
-        
+
         yield return www.SendWebRequest();
 
         if (www.isNetworkError || www.isHttpError)
@@ -49,14 +49,17 @@ public class LoginRequest : MonoBehaviour
             if (output.successful)
             {
                 currentUser cu = new currentUser();
-                cu.writeUserId(output.userId);
+                cu.writeUserId(output.userId ?? default(int));
                 cu.writeToken(output.token);
                 SceneManager.LoadScene(2);
             }
-            responseText.text = output.message;
-            Debug.Log(output);
+            else
+            {
+                responseText.text = output.message;
+                Debug.Log(output);
+            }
         }
-        
+
     }
 
     public void CheckInputFields()
