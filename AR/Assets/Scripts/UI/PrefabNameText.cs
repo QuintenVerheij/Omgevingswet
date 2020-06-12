@@ -19,7 +19,7 @@ public class PrefabNameText : MonoBehaviour
             ObjectCreationHandler handler = ObjectCreationHandler.Instance;
             int index = handler.currentIndex;
             int modelCount = handler.models.Length;
-            GameObject currentPrefab = handler.models[index];
+            GameObject currentPrefab = handler.models[index].gameObject;
             text.text = currentPrefab.name + " (" + (index+1) +"/"+ modelCount + ")";
         }
     }

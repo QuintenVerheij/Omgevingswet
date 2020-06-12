@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 2181248638697099815}
   - component: {fileID: 2181248638697099813}
   - component: {fileID: 2181248638697099812}
-  - component: {fileID: 244623288625523510}
   - component: {fileID: 2790119137837734325}
   m_Layer: 0
   m_Name: Tree
@@ -81,21 +80,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!114 &244623288625523510
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2181248638697099814}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 39c1d6416f2d6ad419df753520ddb20e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  highlightPrefab: {fileID: 8435184985971595212, guid: 3bf136307118a454aae15e18800ec27b,
-    type: 3}
-  highlightInstances: []
 --- !u!64 &2790119137837734325
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -119,6 +103,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2181248639321902454}
+  - component: {fileID: 1575027463784402460}
   m_Layer: 0
   m_Name: Tree
   m_TagString: Untagged
@@ -141,3 +126,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1575027463784402460
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2181248639321902345}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39c1d6416f2d6ad419df753520ddb20e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  highlightPrefab: {fileID: 8435184985971595212, guid: 3bf136307118a454aae15e18800ec27b,
+    type: 3}
+  thumbnailDistance: 2
+  thumbnailOrientation: {x: 0, y: 0, z: 0}

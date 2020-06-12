@@ -4,8 +4,19 @@ using UnityEngine;
 
 //Model class is used for every object a user can place in the ar scene
 public class Model : MonoBehaviour{
+	/*public enum Type {
+		Voorwerp,
+		Gebouw,
+		Infrastructuur
+	}*/
+	//public Type type;
+
 	public GameObject highlightPrefab; //prefab that contains the outline shader
-	public List<GameObject> highlightInstances = new List<GameObject>(); //instances of highlight prefab. In order to access them they need to be stored in a list
+	private List<GameObject> highlightInstances = new List<GameObject>(); //instances of highlight prefab. In order to access them they need to be stored in a list
+
+	[Header("Thumbnail Settings")]
+	public float thumbnailDistance;
+	public Vector3 thumbnailOrientation;
 
 	private void CreateHighlightObject(MeshFilter parentMeshFilter) { 
 		GameObject copy = Instantiate(highlightPrefab, parentMeshFilter.transform); //creates an instance of the highlight prefab

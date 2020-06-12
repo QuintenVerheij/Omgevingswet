@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ObjectCreationHandler : BaseModeInputHandler {
-    public int currentIndex;
+    
+    [HideInInspector]public int currentIndex = -1;
 
-    public GameObject[] models; //array of instances of models in the scene, modify this array in the inspector
+    public Model[] models; //array of instances of models in the scene, modify this array in the inspector
     public static ObjectCreationHandler Instance { get; private set; }
     public GameObject placedObjectsParent;
 
@@ -16,7 +17,7 @@ public class ObjectCreationHandler : BaseModeInputHandler {
     }
 
     void Start(){
-        OnIndexChange();
+        //OnIndexChange();
     }
 
     private void OnEnable() {
@@ -30,8 +31,10 @@ public class ObjectCreationHandler : BaseModeInputHandler {
     }
 
     public override void OnPlaneTouchBegin(Vector3 position) {
-        GameObject instance = Instantiate(models[currentIndex], placedObjectsParent.transform);
-        instance.transform.position = position;
+        if(currentIndex >= 0) {
+            GameObject instance = Instantiate(models[currentIndex].gameObject, placedObjectsParent.transform);
+            instance.transform.position = position;
+        }
     }
 
     //increment the index and update the visibility of the models
@@ -54,10 +57,10 @@ public class ObjectCreationHandler : BaseModeInputHandler {
 
 
     void OnIndexChange() {
-        for(int i = 0; i < models.Length; i++) {
+        /*for(int i = 0; i < models.Length; i++) {
             bool shouldBeActive = i == currentIndex;
-            models[i].SetActive(shouldBeActive); //enable or disable the gameobject, depending on the index
+            models[i].gameObject.SetActive(shouldBeActive); //enable or disable the gameobject, depending on the index
             //when disabled, the model will be invisible, and if enabled, will make the model visible again.
-        }
+        }*/
     }
 }
