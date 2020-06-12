@@ -1,6 +1,6 @@
 using System;
 using UnityEngine;
-
+using Newtonsoft.Json;
 public class AuthorizedAction<T>:IAPIModel {
     public AuthorizationToken auth;
     public T input;
@@ -11,8 +11,8 @@ public class AuthorizedAction<T>:IAPIModel {
         this.input = input;
     }
 
-    public static IAPIModel fromJson(string json){
-        return JsonUtility.FromJson<AuthorizedAction<T>>(json);
+    public static AuthorizedAction<T> fromJson(string json){
+        return JsonConvert.DeserializeObject<AuthorizedAction<T>>(json);
     }
 
     public override string ToString() {

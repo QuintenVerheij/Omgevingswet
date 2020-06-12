@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using Newtonsoft.Json;
 
 public class MessageWithItem<T> : IAPIModel {
     public Message message;
@@ -11,8 +12,8 @@ public class MessageWithItem<T> : IAPIModel {
         this.item = item;
     }
 
-    public static IAPIModel fromJson(string json){
-        return JsonUtility.FromJson<MessageWithItem<T>>(json);
+    public static MessageWithItem<T> fromJson(string json){
+        return JsonConvert.DeserializeObject<MessageWithItem<T>>(json);
     }
 
     public override string ToString() {
