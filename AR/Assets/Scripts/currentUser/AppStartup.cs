@@ -32,8 +32,10 @@ public class AppStartup : MonoBehaviour
                 MessageWithItem<AuthorizationWhoAmIResult> message = 
                   (MessageWithItem<AuthorizationWhoAmIResult>) MessageWithItem<AuthorizationWhoAmIResult>.fromJson(uwr.downloadHandler.text);
                 if (message.item != null){
-                  Debug.Log(message.item.userId);
                   user.writeUserId(message.item.userId);
+                }else{
+                    user.writeToken("");
+                    user.writeUserId(-1);
                 }
             }
         }
