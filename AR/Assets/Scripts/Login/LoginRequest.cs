@@ -10,11 +10,7 @@ public class LoginRequest : MonoBehaviour
     public InputField userName;
     public InputField password;
     public Text responseText;
-
     public AuthorizationTokenReturn output;
-
-    public LoginDataToJSON data;
-
     public Button loginButton;
 
     public void ClickLogin()
@@ -52,6 +48,9 @@ public class LoginRequest : MonoBehaviour
             output = AuthorizationTokenReturn.fromJson(www.downloadHandler.text);
             if (output.successful)
             {
+                currentUser cu = new currentUser();
+                cu.writeUserId(output.userId);
+                cu.writeToken(output.token);
                 SceneManager.LoadScene(2);
             }
             responseText.text = output.message;

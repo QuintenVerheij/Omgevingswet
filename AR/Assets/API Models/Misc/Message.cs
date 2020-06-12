@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using Newtonsoft.Json;
 public class Message : IAPIModel {
     public bool successful;
 
@@ -23,8 +24,8 @@ public class Message : IAPIModel {
         this.userId = userId;
     }
 
-    public static IAPIModel fromJson(string json){
-        return JsonUtility.FromJson<Message>(json);
+    public static Message fromJson(string json){
+        return JsonConvert.DeserializeObject<Message>(json);
     }
 
     public override string ToString() {

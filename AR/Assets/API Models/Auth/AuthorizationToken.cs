@@ -1,4 +1,5 @@
 using UnityEngine;
+using Newtonsoft.Json;
 
 public class AuthorizationToken : IAPIModel {
     public string token;
@@ -8,8 +9,8 @@ public class AuthorizationToken : IAPIModel {
         this.token = token;
     }
 
-    public static IAPIModel fromJson(string json){
-        return JsonUtility.FromJson<AuthorizationToken>(json);
+    public static AuthorizationToken fromJson(string json){
+        return JsonConvert.DeserializeObject<AuthorizationToken>(json);
     }
 
     public override string ToString() {

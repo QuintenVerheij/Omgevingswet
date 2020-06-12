@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using Newtonsoft.Json;
 public class UserCreateInput : IAPIModel {
     public string username;
     public string email;
@@ -15,8 +16,8 @@ public class UserCreateInput : IAPIModel {
         this.address = address;
     }
 
-    public static IAPIModel fromJson(string json){
-        return JsonUtility.FromJson<UserCreateInput>(json);
+    public static UserCreateInput fromJson(string json){
+        return JsonConvert.DeserializeObject<UserCreateInput>(json);
     }
 
     public override string ToString() {

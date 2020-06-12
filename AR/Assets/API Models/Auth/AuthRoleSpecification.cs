@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Newtonsoft.Json;
 
 public class AuthRoleSpecification: IAPIModel{
     public AuthorizationRole role;
@@ -21,8 +22,8 @@ public class AuthRoleSpecification: IAPIModel{
         this.allowedDelete = allowedDelete;
     }
 
-    public static IAPIModel fromJson(string json){
-        return JsonUtility.FromJson<AuthRoleSpecification>(json);
+    public static AuthRoleSpecification fromJson(string json){
+        return JsonConvert.DeserializeObject<AuthRoleSpecification>(json);
     }
 
     public override string ToString() {

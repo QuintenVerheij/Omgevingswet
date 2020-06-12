@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using Newtonsoft.Json;
 
 public class UserAddAddressInput: IAPIModel {
     public int userId;
@@ -12,8 +13,8 @@ public class UserAddAddressInput: IAPIModel {
         this.addressId = addressId;
     }
 
-    public static IAPIModel fromJson(string json){
-        return JsonUtility.FromJson<UserAddAddressInput>(json);
+    public static UserAddAddressInput fromJson(string json){
+        return JsonConvert.DeserializeObject<UserAddAddressInput>(json);
     }
     public override string ToString() {
         return String.Format("userId: {0}, addressId: {1}",
