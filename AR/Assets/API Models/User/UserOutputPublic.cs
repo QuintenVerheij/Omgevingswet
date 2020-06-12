@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using Newtonsoft.Json;
 
 public class UserOutputPublic: IAPIModel {
     public int id;
@@ -11,8 +12,8 @@ public class UserOutputPublic: IAPIModel {
         this.username = username;
     }
 
-    public static IAPIModel fromJson(string json){
-        return JsonUtility.FromJson<UserOutputPublic>(json);
+    public static UserOutputPublic fromJson(string json){
+        return JsonConvert.DeserializeObject<UserOutputPublic>(json);
     }
 
     public override string ToString() {

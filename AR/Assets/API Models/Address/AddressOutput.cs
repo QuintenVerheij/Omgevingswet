@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Newtonsoft.Json;
 
 public class AddressOutput : IAPIModel {
     public int id;
@@ -22,8 +23,8 @@ public class AddressOutput : IAPIModel {
         this.users = users;
     }
 
-    public static IAPIModel fromJson(string json){
-        return JsonUtility.FromJson<AddressOutput>(json);
+    public static AddressOutput fromJson(string json){
+        return JsonConvert.DeserializeObject<AddressOutput>(json);
     }
 
     public override string ToString() {
