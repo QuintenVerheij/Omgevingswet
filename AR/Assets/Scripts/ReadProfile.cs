@@ -32,7 +32,11 @@ public class ReadProfile : MonoBehaviour
         } else {
             Debug.Log(net.downloadHandler.text);
             res = (MessageWithItem<UserOutput>) MessageWithItem<UserOutput>.fromJson(net.downloadHandler.text);
-            username.text = res.item.username;
+            if(res.message.successful) {
+                username.text = res.item.username;
+            } else {
+                username.text = "[Niet ingelogd]";
+            }
         }
     }
 }
