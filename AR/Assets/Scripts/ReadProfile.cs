@@ -19,7 +19,7 @@ public class ReadProfile : MonoBehaviour
         user = new currentUser();
         token = new AuthorizationToken(user.readToken());
         action = new AuthorizedAction<int>(token, user.readUserId());
-        profilePic = new Texture2D(300, 300);
+        profilePic = new Texture2D(300, 300, TextureFormat.ARGB4444, false);
         StartCoroutine (GetUserInfo());
         StartCoroutine (GetProfilePic(profilePic));
     }
