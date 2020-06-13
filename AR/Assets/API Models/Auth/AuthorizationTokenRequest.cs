@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using Newtonsoft.Json;
 
 public class AuthorizationTokenRequest : IAPIModel {
     public string mail;
@@ -12,8 +13,8 @@ public class AuthorizationTokenRequest : IAPIModel {
         this.password = password;
     }
 
-    public static IAPIModel fromJson(string json){
-        return JsonUtility.FromJson<AuthorizationTokenRequest>(json);
+    public static AuthorizationTokenRequest fromJson(string json){
+        return JsonConvert.DeserializeObject<AuthorizationTokenRequest>(json);
     }
 
     public override string ToString() {

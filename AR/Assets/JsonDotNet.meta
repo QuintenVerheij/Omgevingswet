@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
 guid: e1160fd77cb78f24bbffb0003d93605f
+=======
+guid: f4391aff225f0d3468a5ea875c120e9e
+>>>>>>> origin/TokenOnStartup/Login
 folderAsset: yes
 DefaultImporter:
   externalObjects: {}

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using Newtonsoft.Json;
 
 public class UserOutput : IAPIModel {
     public int id;
@@ -16,8 +17,8 @@ public class UserOutput : IAPIModel {
         this.address = address;
     }
 
-    public static IAPIModel fromJson(string json){
-        return JsonUtility.FromJson<UserOutput>(json);
+    public static UserOutput fromJson(string json){
+        return JsonConvert.DeserializeObject<UserOutput>(json);
     }
 
     public override string ToString() {

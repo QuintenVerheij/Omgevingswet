@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using Newtonsoft.Json;
 
 public class AddressCreateInput : IAPIModel {
 
@@ -18,8 +19,8 @@ public class AddressCreateInput : IAPIModel {
         this.postalCode = postalCode;
     }
 
-    public static IAPIModel fromJson(string json){
-        return JsonUtility.FromJson<AddressCreateInput>(json);
+    public static AddressCreateInput fromJson(string json){
+        return JsonConvert.DeserializeObject<AddressCreateInput>(json);
     }
 
     public override string ToString() {
