@@ -25,6 +25,6 @@ public class UserCreateInput : IAPIModel {
         this.username,
         this.email,
         this.password,
-        this);
+        this.address.ToString());
     }
 }
