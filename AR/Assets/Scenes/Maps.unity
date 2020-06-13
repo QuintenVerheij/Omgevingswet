@@ -132,9 +132,9 @@ GameObject:
   - component: {fileID: 67158620}
   - component: {fileID: 67158619}
   - component: {fileID: 67158618}
-  - component: {fileID: 67158617}
   - component: {fileID: 67158621}
   - component: {fileID: 67158622}
+  - component: {fileID: 67158617}
   m_Layer: 0
   m_Name: Map
   m_TagString: Untagged
@@ -151,16 +151,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 67158616}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dcf32ea2cc0514b569329f6b6b68f9b4, type: 3}
+  m_Script: {fileID: 11500000, guid: 622f810a6ab00044cb77d515b0711887, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _map: {fileID: 67158619}
-  _locationStrings:
-  - 52.0130589, 4.354478
-  - 52.008554, 4.363259
-  - 52.01272, 4.359073
-  - 52.0120465, 4.3600545
-  _spawnScale: 10
+  _spawnScale: 5
   _markerPrefab: {fileID: 2448403662358801943, guid: e08d157fdb065ef419ac0cfb8d73a706,
     type: 3}
 --- !u!114 &67158618
@@ -1275,6 +1270,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7644267174517449784, guid: 1685a87a8b9cc1149a183fdf09faa19c,
+        type: 3}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7644267174517449784, guid: 1685a87a8b9cc1149a183fdf09faa19c,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7644267174517449784, guid: 1685a87a8b9cc1149a183fdf09faa19c,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7644267174517449784, guid: 1685a87a8b9cc1149a183fdf09faa19c,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7644267175182232580, guid: 1685a87a8b9cc1149a183fdf09faa19c,
         type: 3}
