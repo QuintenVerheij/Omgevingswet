@@ -1,12 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.IO;
+using UnityEngine.UI;
+using System.Drawing;
 
 public class ClickMarker : MonoBehaviour
 {
-    private MarkerData _data;
+    private ModelOutputPreview _data;
     public GameObject canvas;
-    public void SetMarkerData(MarkerData data)
+    public void SetMarkerData(ModelOutputPreview data)
     {
         _data = data;
     }
@@ -18,7 +21,10 @@ public class ClickMarker : MonoBehaviour
 
         //Load in image from backend
         //set image of image child from canvas to image:
-        //RawImage rawImage = canvas.gameObject.GetComponentInChildren<RawImage>();
-        //rawImage.texture = texture;
+        Texture2D newTexture = new Texture2D(650, 550, TextureFormat.ARGB4444, false);
+        newTexture.LoadRawTextureData(_data.preview);
+        newTexture.Apply();
+        GameObject.Find("PopUpMessage").GetComponentInChildren<RawImage>().texture = newTexture;
+        Debug.Log("LOADED");
     }
 }
