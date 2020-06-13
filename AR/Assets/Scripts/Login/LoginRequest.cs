@@ -10,11 +10,7 @@ public class LoginRequest : MonoBehaviour
     public InputField userName;
     public InputField password;
     public Text responseText;
-
     public AuthorizationTokenReturn output;
-
-    public LoginDataToJSON data;
-
     public Button loginButton;
 
     public void ClickLogin()
@@ -38,7 +34,7 @@ public class LoginRequest : MonoBehaviour
         www.uploadHandler = (UploadHandler)new UploadHandlerRaw(jsonToSend);
         www.downloadHandler = (DownloadHandler)new DownloadHandlerBuffer();
         www.SetRequestHeader("Content-Type", "application/json");
-        
+
         yield return www.SendWebRequest();
 
         if (www.isNetworkError || www.isHttpError)
@@ -52,12 +48,18 @@ public class LoginRequest : MonoBehaviour
             output = AuthorizationTokenReturn.fromJson(www.downloadHandler.text);
             if (output.successful)
             {
+                currentUser cu = new currentUser();
+                cu.writeUserId(output.userId ?? default(int));
+                cu.writeToken(output.token);
                 SceneManager.LoadScene(2);
             }
-            responseText.text = output.message;
-            Debug.Log(output);
+            else
+            {
+                responseText.text = output.message;
+                Debug.Log(output);
+            }
         }
-        
+
     }
 
     public void CheckInputFields()

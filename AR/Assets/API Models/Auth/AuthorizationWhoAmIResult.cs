@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using Newtonsoft.Json;
 
 public class AuthorizationWhoAmIResult: IAPIModel {
     public int userId;
@@ -13,8 +14,8 @@ public class AuthorizationWhoAmIResult: IAPIModel {
         this.expireTime = expireTime;
     }
 
-    public static IAPIModel fromJson(string json){
-        return JsonUtility.FromJson<AuthorizationWhoAmIResult>(json);
+    public static AuthorizationWhoAmIResult fromJson(string json){
+        return JsonConvert.DeserializeObject<AuthorizationWhoAmIResult>(json);
     }
 
     public override string ToString() {
