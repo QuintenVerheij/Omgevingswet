@@ -11,7 +11,14 @@ public class MeshTest : MonoBehaviour {
 
     // Start is called before the first frame update
     void Start() {
-
+        print("checking custom model folder...");
+        string[] objFiles = MeshIO.GetListOfObjFileNames();
+        foreach (var file in objFiles) {
+            print("obj file: " + file);
+        }
+        if(objFiles.Length == 0) {
+            print("No custom models has been found.");
+        }
     }
 
     // Update is called once per frame
@@ -27,7 +34,7 @@ public class MeshTest : MonoBehaviour {
 
     public void Save() {
         if (transform.childCount > 0) {
-            string path = $"Custom Model-{System.DateTime.Now.ToString()}";
+            string path = $"Custom Model-{System.DateTime.Now.Ticks}";
 
             Transform child = transform.GetChild(0);
             //Renderer renderer = child.GetComponent<Renderer>();

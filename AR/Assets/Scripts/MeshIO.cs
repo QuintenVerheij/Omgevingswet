@@ -124,7 +124,7 @@ public static class MeshIO
         var fileInfo = info.GetFiles();
         List<string> objFiles = new List<string>();
         foreach (var file in fileInfo) {
-            if(file.Extension == "obj") {
+            if(file.Extension == ".obj") {
                 string filename = file.Name.Replace(".obj", "");
                 objFiles.Add(filename);
             }
