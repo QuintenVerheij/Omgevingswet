@@ -27,4 +27,6 @@ public class ClickMarker : MonoBehaviour
         GameObject.Find("PopUpMessage").GetComponentInChildren<RawImage>().texture = newTexture;
         Debug.Log("LOADED");
     }
+
+
 }
