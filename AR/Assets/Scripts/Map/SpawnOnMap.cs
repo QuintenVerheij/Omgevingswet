@@ -14,8 +14,6 @@ public class SpawnOnMap : MonoBehaviour
     [SerializeField]
     AbstractMap _map;
 
-
-
     string[] _locationStrings;
     Vector2d[] _locations;
 

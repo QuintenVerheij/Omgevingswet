@@ -22,7 +22,7 @@ public class ClickMarker : MonoBehaviour
         //Load in image from backend
         //set image of image child from canvas to image:
         Texture2D newTexture = new Texture2D(650, 550, TextureFormat.ARGB4444, false);
-        newTexture.LoadRawTextureData(_data.preview);
+        newTexture.LoadImage(_data.preview);
         newTexture.Apply();
         GameObject.Find("PopUpMessage").GetComponentInChildren<RawImage>().texture = newTexture;
         Debug.Log("LOADED");
