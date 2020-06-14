@@ -14,6 +14,11 @@ public class ReadProfile : MonoBehaviour
     Texture2D pic;
     public static int crossedId;
     public Text amtModels;
+
+    public GameObject content;
+    public GameObject prefab;
+
+    public GameObject modelisEmpty;
     // Start is called before the first frame update
     void Start()
     {
@@ -76,6 +81,11 @@ public class ReadProfile : MonoBehaviour
             if (usernameres.message.successful)
             {
                 amtModels.text = usernameres.item.models.Count + amtModels.text.Substring(1);
+                if (usernameres.item.models.Count > 0)
+                {
+                    modelisEmpty.SetActive(false);
+                    PopulateModels(usernameres.item.models);
+                }
                 username.text = usernameres.item.username;
             }
             else
@@ -104,6 +114,11 @@ public class ReadProfile : MonoBehaviour
             if (usernameres.message.successful)
             {
                 amtModels.text = usernameres.item.models.Count + amtModels.text.Substring(1);
+                if (usernameres.item.models.Count > 0)
+                {
+                    modelisEmpty.SetActive(false);
+                    PopulateModels(usernameres.item.models);
+                }
                 username.text = usernameres.item.username;
             }
             else
@@ -111,5 +126,10 @@ public class ReadProfile : MonoBehaviour
                 username.text = "[Niet ingelogd]";
             }
         }
+    }
+
+    void PopulateModels(List<ModelOutputPreview> models)
+    {
+        content.GetComponent<PopulateList>().Populate(models, prefab);
     }
 }
