@@ -7,11 +7,7 @@ public class LoadSceneWithUserId : MonoBehaviour
 {
     public void SceneLoader(int userId)
     {
-        idToCross.crossingId = userId;
+        ReadProfile.crossedId = userId;
         SceneManager.LoadScene(3);
     }
-}
-
-public static class idToCross {
-    public static int crossingId {get; set;}
 }
