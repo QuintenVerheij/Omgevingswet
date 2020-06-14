@@ -1,8 +1,7 @@
 using System;
 using Newtonsoft.Json;
 
-public class ModelOutputPreview : IAPIModel
-{
+public class ModelCreateInput: IAPIModel {
     public int id;
     public int userid;
     public bool pub;
@@ -11,9 +10,7 @@ public class ModelOutputPreview : IAPIModel
     public double latitude;
     public string createdAt;
 
-    public byte[] preview;
-
-    public ModelOutputPreview(int id, int userid, bool pub, int visibleRange, double longitude, double latitude, string createdAt, byte[] preview)
+    public ModelCreateInput(int id, int userid, bool pub, int visibleRange, double longitude, double latitude, string createdAt)
     {
         this.id = id;
         this.userid = userid;
@@ -22,16 +19,13 @@ public class ModelOutputPreview : IAPIModel
         this.longitude = longitude;
         this.latitude = latitude;
         this.createdAt = createdAt;
-        this.preview = preview;
     }
 
-    public static ModelOutputPreview fromJson(string json)
-    {
-        return JsonConvert.DeserializeObject<ModelOutputPreview>(json);
+    public ModelCreateInput fromJson(string Json){
+        return JsonConvert.DeserializeObject<ModelCreateInput>(Json);
     }
 
-    public override string ToString()
-    {
+    public override string ToString() {
         return String.Format("id: {0}, userId: {1},public: {2},visibleRange: {3},longitude: {4}, latitude: {5}, createdAt: {6}",
         this.id,
         this.userid,
@@ -40,5 +34,6 @@ public class ModelOutputPreview : IAPIModel
         this.longitude,
         this.latitude,
         this.createdAt);
+        
     }
 }
