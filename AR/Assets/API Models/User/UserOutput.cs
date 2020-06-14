@@ -4,7 +4,8 @@ using System.Linq;
 using UnityEngine;
 using Newtonsoft.Json;
 
-public class UserOutput : IAPIModel {
+public class UserOutput : IAPIModel
+{
     public int id;
     public string username;
     public string email;
@@ -20,11 +21,13 @@ public class UserOutput : IAPIModel {
         this.models = models;
     }
 
-    public static UserOutput fromJson(string json){
+    public static UserOutput fromJson(string json)
+    {
         return JsonConvert.DeserializeObject<UserOutput>(json);
     }
 
-    public override string ToString() {
+    public override string ToString()
+    {
         return String.Format("id: {0}, username: {1}, email: {2}, address: {3}, models: {4}",
         this.id,
         this.username,
