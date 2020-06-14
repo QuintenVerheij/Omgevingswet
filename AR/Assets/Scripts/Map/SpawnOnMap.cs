@@ -66,15 +66,17 @@ public class SpawnOnMap : MonoBehaviour
         {
             //Response to Json
             string response = System.Text.Encoding.UTF8.GetString(www.downloadHandler.data);
-            //Debug.Log(response);
-            //if (cu.readUserId() != -1)
-            //{
-                ModelOutputPreview[] markers = JsonConvert.DeserializeObject<ModelOutputPreview[]>(response);
-            //}
-            //else
-            //{
-            //    ModelOutputPreview[] markers = JsonConvert.DeserializeObject<ModelOutputPreview[]>(response);
-            //}
+            Debug.Log(response);
+            ModelOutputPreview[] markers;
+            if (cu.readUserId() != -1)
+            {
+                MessageWithItem<ModelOutputPreview[]> messageWithItems = JsonConvert.DeserializeObject<MessageWithItem<ModelOutputPreview[]>>(response);
+                markers = messageWithItems.item;
+            }
+            else
+            {
+                markers = JsonConvert.DeserializeObject<ModelOutputPreview[]>(response);
+            }
             _locations = new Vector2d[markers.Length];
             _spawnedObjects = new List<GameObject>();
             //Populate marker objects with data
