@@ -22,7 +22,7 @@ public class ReadProfile : MonoBehaviour, IPointerClickHandler
 
     public GameObject modelisEmpty;
     private Rect ChoiceWindow = new Rect((Screen.width / 2) - 400, Screen.height / 2 - 600, 800, 450);
-    private Rect CamWindow = new Rect(0, 0, Screen.width, Screen.height);
+    private Rect CamWindow = new Rect(0, 0, Screen.width, Screen.height - 150);
 
     private WebCamTexture webCamTexture;
     public GameObject registerButton;
@@ -179,7 +179,8 @@ public class ReadProfile : MonoBehaviour, IPointerClickHandler
         if (GUI.Button(new Rect(50, 50, 700, 150), "Camera", buttons))
         {
             Debug.Log("Camera");
-            webCamTexture = new WebCamTexture();
+            WebCamDevice[] devices = WebCamTexture.devices;
+            webCamTexture = new WebCamTexture(devices[0].name);
             GetComponent<Renderer>().material.mainTexture = webCamTexture; //Add Mesh Renderer to the GameObject to which this script is attached to
             webCamTexture.Play();
 
@@ -217,6 +218,35 @@ public class ReadProfile : MonoBehaviour, IPointerClickHandler
         //Write out the PNG. Of course you have to substitute your_path for something sensible
         File.WriteAllBytes("Assets/Resources/" + user.readUserId() + "_Profile.png", bytes);
         showCam = false;
+        webCamTexture.Stop();
+        StartCoroutine(UploadPhoto());
         //TODO: Upload image to backend, reload profile page
+    }
+    IEnumerator UploadPhoto()
+    {
+        // byte[] boundary = UnityWebRequest.GenerateBoundary();
+        // UnityWebRequest www = new UnityWebRequest("localhost:8080/user/img/upload?auth=" + user.readToken() + "&input=" + user.readUserId(), "POST");
+        // List<IMultipartFormSection> requestData = new List<IMultipartFormSection>();
+        // requestData.Add(new MultipartFormDataSection("auth=" + user.readToken() + "&input=" + user.readUserId()));
+        // requestData.Add(new MultipartFormFileSection("file", File.ReadAllBytes("Assets/Resources/" + user.readUserId() + "_Profile.png"), "upload.png", "image/png"));
+        // byte[] formSections = UnityWebRequest.SerializeFormSections(requestData, boundary);
+        // www.uploadHandler = (UploadHandler)new UploadHandlerRaw(formSections);
+        // www.downloadHandler = (DownloadHandler)new DownloadHandlerBuffer();
+        // www.uploadHandler.contentType = "multipart/form-data; boundary=\"" + System.Text.Encoding.UTF8.GetString(boundary) + "\"";
+        // www.SetRequestHeader("Content-Type", "multipart/form-data");
+        WWWForm form = new WWWForm();
+        form.AddBinaryData("file", File.ReadAllBytes("Assets/Resources/" + user.readUserId() + "_Profile.png"), "upload.png", "image/png");
+        UnityWebRequest www = UnityWebRequest.Post("localhost:8080/user/img/upload?auth=" + user.readToken() + "&input=" + user.readUserId(), form);
+        yield return www.SendWebRequest();
+        if (www.isNetworkError || www.isHttpError)
+        {
+            Debug.Log(www.error);
+        }
+        else
+        {
+            Message m = Message.fromJson(www.downloadHandler.text);
+            Debug.Log(m.ToString());
+            new LoadSceneWithUserId().SceneLoader(user.readUserId());
+        }
     }
 }
