@@ -4,6 +4,7 @@ using UnityEngine.UI;
 using UnityEngine;
 using UnityEngine.Networking;
 using System;
+using UnityEngine.SceneManagement;
 
 public class CollectForm : MonoBehaviour
 {
@@ -74,8 +75,8 @@ public class CollectForm : MonoBehaviour
     {
         UserCreateInput res = new UserCreateInput(
             formCollector.Username,
-            formCollector.Password,
             formCollector.Email,
+            formCollector.Password,
             new AddressCreateInput(
                 formCollector.City,
                 formCollector.Street,
@@ -102,6 +103,7 @@ public class CollectForm : MonoBehaviour
             if (message.successful)
             {
                 Debug.Log("Success");
+                SceneManager.LoadScene(0);
             }
             else
             {

@@ -13,9 +13,11 @@ public class ReadProfile : MonoBehaviour
     AuthorizedAction<int> action;
     RawImage PictureFinal;
     Texture2D profilePic;
+    int userId;
     // Start is called before the first frame update
     void Start()
     {
+        userId = idToCross.crossingId;
         user = new currentUser();
         token = new AuthorizationToken(user.readToken());
         action = new AuthorizedAction<int>(token, user.readUserId());
