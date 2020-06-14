@@ -17,6 +17,9 @@ public class ObjectSelectionHandler : BaseModeInputHandler {
     public GameObject gridPlane_yz;
     public GridDisplay gridDisplay;
 
+    public MeshTest modelExporter;
+    public LayerMask exportInclusionMask;
+
     void Awake()
     {
         Instance = this;
@@ -108,5 +111,33 @@ public class ObjectSelectionHandler : BaseModeInputHandler {
         gridPlane_xz.SetActive(CurrentGridMode == GridMode.XZ);
         gridPlane_xy.SetActive(CurrentGridMode == GridMode.XY);
         gridPlane_yz.SetActive(CurrentGridMode == GridMode.YZ);
+    }
+
+    public bool CanMergeSelection() {
+        bool containsCustomModel = false;
+        if(selectedModels.Count == 0) {
+            return false;
+        }
+
+        foreach(var model in selectedModels) {
+            if (model.isCustomModel) {
+                containsCustomModel = true;
+            }
+        }
+        return !containsCustomModel;
+    }
+    public void MergeSelectedObjects() {
+        if (!CanMergeSelection()) {
+            Debug.Log("Cannot merge selection");
+            return;
+        }
+        foreach(var model in selectedModels) {
+            if (((1 << model.gameObject.layer) & exportInclusionMask.value) != 0) {
+                GameObject modelCopy = Instantiate(model.gameObject);
+                modelCopy.transform.position = EnvironmentHandler.Instance.environmentScene.transform.position - modelCopy.transform.position;
+                modelCopy.transform.SetParent(modelExporter.transform);
+            }
+        }
+        modelExporter.Save();
     }
 }

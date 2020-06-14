@@ -12,13 +12,33 @@ public class ObjectCreationHandler : BaseModeInputHandler {
 
     public GameObject uiGroup_addObjects;
     public GridDisplay gridDisplay;
+    public MeshTest modelLoader;
+    public Model customModelPrefab;
 
     private void Awake() {
         Instance = this;
     }
 
+    private void LoadAllCustomModels() {
+        string[] objFiles = MeshIO.GetListOfObjFileNames();
+        List<Model> modelList = new List<Model>(models);
+        
+        for (int i = 0; i < objFiles.Length; i++) {
+            GameObject instance = Instantiate(customModelPrefab.gameObject);
+            modelLoader.Load(objFiles[i]);
+            GameObject child = modelLoader.transform.GetChild(0).gameObject;
+            child.transform.SetParent(instance.transform);
+
+            modelList.Add(instance.GetComponent<Model>());
+        }
+
+        models = modelList.ToArray();
+    }
+
     void Start(){
         //OnIndexChange();
+
+        LoadAllCustomModels();
     }
 
     private void OnEnable() {
