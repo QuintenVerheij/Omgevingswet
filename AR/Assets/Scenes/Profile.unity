@@ -684,7 +684,7 @@ PrefabInstance:
     - target: {fileID: 7644267174517449782, guid: 88e8080e4f01ed44da75494d65d5068e,
         type: 3}
       propertyPath: m_RootOrder
-      value: 13
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 7644267174517449782, guid: 88e8080e4f01ed44da75494d65d5068e,
         type: 3}
@@ -835,7 +835,7 @@ GameObject:
   - component: {fileID: 756688409}
   - component: {fileID: 756688408}
   m_Layer: 5
-  m_Name: Button
+  m_Name: RegisterButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -855,7 +855,7 @@ RectTransform:
   - {fileID: 1147469288}
   - {fileID: 83361794}
   m_Father: {fileID: 839379661}
-  m_RootOrder: 12
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
@@ -1299,6 +1299,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   username: {fileID: 1302948220}
+  PictureFinal: {fileID: 1995063953}
+  amtModels: {fileID: 798564891}
+  content: {fileID: 1610907743}
+  prefab: {fileID: 5916756926224834910, guid: a2c8d13b42d4c01469f8c794d166103e, type: 3}
+  modelisEmpty: {fileID: 1969487457}
+  registerButton: {fileID: 756688406}
   webcamButton: {fileID: 2800000, guid: 1e34d748195839d4b8148f40e71e9572, type: 3}
   isProfilePicTapped: 0
 --- !u!23 &839379663
@@ -2734,6 +2740,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1995063951}
   m_CullTransparentMesh: 0
+--- !u!114 &1995063955
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1995063951}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3b2bf3d081b5114b9b114b412b31a94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  readProfile: {fileID: 839379662}
 --- !u!1 &2087653270
 GameObject:
   m_ObjectHideFlags: 0

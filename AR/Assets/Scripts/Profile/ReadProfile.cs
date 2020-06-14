@@ -25,7 +25,7 @@ public class ReadProfile : MonoBehaviour, IPointerClickHandler
     private Rect CamWindow = new Rect(0, 0, Screen.width, Screen.height);
 
     private WebCamTexture webCamTexture;
-
+    public GameObject registerButton;
     public Texture webcamButton;
     public bool isProfilePicTapped;
     private bool showCam;
@@ -33,6 +33,10 @@ public class ReadProfile : MonoBehaviour, IPointerClickHandler
     void Start()
     {
         user = new currentUser();
+        if (user.readUserId() != -1)
+        {
+            registerButton.SetActive(false);
+        }
         if (crossedId == 0)
         {
             crossedId = user.readUserId();
