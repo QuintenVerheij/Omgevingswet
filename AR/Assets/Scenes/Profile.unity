@@ -684,7 +684,7 @@ PrefabInstance:
     - target: {fileID: 7644267174517449782, guid: 88e8080e4f01ed44da75494d65d5068e,
         type: 3}
       propertyPath: m_RootOrder
-      value: 12
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 7644267174517449782, guid: 88e8080e4f01ed44da75494d65d5068e,
         type: 3}
@@ -855,7 +855,7 @@ RectTransform:
   - {fileID: 1147469288}
   - {fileID: 83361794}
   m_Father: {fileID: 839379661}
-  m_RootOrder: 11
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
@@ -1186,6 +1186,7 @@ GameObject:
   - component: {fileID: 839379659}
   - component: {fileID: 839379658}
   - component: {fileID: 839379662}
+  - component: {fileID: 839379663}
   m_Layer: 5
   m_Name: Profile Page
   m_TagString: Untagged
@@ -1298,11 +1299,47 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   username: {fileID: 1302948220}
-  PictureFinal: {fileID: 1995063953}
-  amtModels: {fileID: 798564891}
-  content: {fileID: 1610907743}
-  prefab: {fileID: 5916756926224834910, guid: a2c8d13b42d4c01469f8c794d166103e, type: 3}
-  modelisEmpty: {fileID: 1969487457}
+  webcamButton: {fileID: 2800000, guid: 1e34d748195839d4b8148f40e71e9572, type: 3}
+  isProfilePicTapped: 0
+--- !u!23 &839379663
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 839379657}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
 --- !u!1 &951470340
 GameObject:
   m_ObjectHideFlags: 0
@@ -2636,6 +2673,7 @@ GameObject:
   - component: {fileID: 1995063952}
   - component: {fileID: 1995063954}
   - component: {fileID: 1995063953}
+  - component: {fileID: 1995063955}
   m_Layer: 5
   m_Name: ProfilePic
   m_TagString: Untagged
