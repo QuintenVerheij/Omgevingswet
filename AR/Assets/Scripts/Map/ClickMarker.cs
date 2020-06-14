@@ -26,9 +26,10 @@ public class ClickMarker : MonoBehaviour
         newTexture.LoadImage(_data.preview);
         newTexture.Apply();
         _popUpMessage.GetComponentInChildren<RawImage>().texture = newTexture;
-        Debug.Log("LOADED");
+        Debug.Log(_data);
         _popUpMessage.GetComponent<ViewOtherModel>().SetModelID(_data.id);
-       
+        _popUpMessage.GetComponent<LoadSceneWithUserId>().setUserId(_data.userid);
+
     }
 
 
