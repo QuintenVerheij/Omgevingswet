@@ -2784,6 +2784,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 1
+
       objectReference: {fileID: 0}
     - target: {fileID: 8775335943340484234, guid: 7784652f8919db44d972e7854857d25b,
         type: 3}
@@ -2809,6 +2810,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_textInfo.spaceCount
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7644267176398634273, guid: 1685a87a8b9cc1149a183fdf09faa19c,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7784652f8919db44d972e7854857d25b, type: 3}
