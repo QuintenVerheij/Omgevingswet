@@ -25,7 +25,7 @@ public class JSONCombinedModel {
         }
         for (int i = 0; i < this.models.Length; i++) {
             Transform child = combinedModel.transform.GetChild(i);
-            Debug.Log($"[ExportCustomModel] {i}, child name: {child.name}");
+            //Debug.Log($"[ExportCustomModel] {i}, child name: {child.name}");
 
             this.models[i] = new JSONModel
             {
@@ -39,12 +39,15 @@ public class JSONCombinedModel {
     public static string ToJSON(JSONCombinedModel model) {
         return JsonUtility.ToJson(model);
     }
+    public static JSONCombinedModel FromJSON(string json) {
+        return JsonUtility.FromJson<JSONCombinedModel>(json);
+    }
+
+    //public CombinedModel ToCombinedModel
 }
 
 public class JSONModelUtility : MonoBehaviour
 {
-    
-
     public static bool CanCombineModels(Model[] models) {
         bool containsCustomModel = false;
         if (models.Length < 2) {
@@ -70,11 +73,20 @@ public class JSONModelUtility : MonoBehaviour
     public static void ExportCustomModel(string localPath, CombinedModel combinedModel) {
         string path = Application.persistentDataPath + "/" + localPath + ".json";
         JSONCombinedModel jsonModel = new JSONCombinedModel(combinedModel);
-        Debug.Log("JSON CONTENT:\n"+JSONCombinedModel.ToJSON(jsonModel));
+        //Debug.Log("JSON CONTENT:\n"+JSONCombinedModel.ToJSON(jsonModel));
         Debug.Log("Exporting json file to '" + path + "'");
 
         File.WriteAllText(path, JSONCombinedModel.ToJSON(jsonModel));
     }
+
+    /*public static CombinedModel ImportCustomModel(string localPath) {
+        string path = Application.persistentDataPath + "/" + localPath + ".json";
+        Debug.Log("Importing json file from '" + path + "'");
+
+        string json = File.ReadAllText(path);
+        JSONCombinedModel jsonCombinedModel = JSONCombinedModel.FromJSON(json);
+        
+    }*/
 
     private static Model[] LoadPrefabModels(Model[] sceneModels) {
         Model[] models = new Model[sceneModels.Length];
