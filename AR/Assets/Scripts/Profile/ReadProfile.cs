@@ -58,7 +58,7 @@ public class ReadProfile : MonoBehaviour, IPointerClickHandler
 
     IEnumerator GetPic()
     {
-        UnityWebRequest uwr = new UnityWebRequest("localhost:8080/user/img/" + user.readUserId(), "GET");
+        UnityWebRequest uwr = new UnityWebRequest("localhost:8080/user/img/" + crossedId, "GET");
         uwr.downloadHandler = (DownloadHandler)new DownloadHandlerBuffer();
         yield return uwr.SendWebRequest();
         if (uwr.isNetworkError || uwr.isHttpError)
