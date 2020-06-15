@@ -141,8 +141,8 @@ MonoBehaviour:
   highlightPrefab: {fileID: 8435184985971595212, guid: 3bf136307118a454aae15e18800ec27b,
     type: 3}
   isCustomModel: 0
-  thumbnailDistance: 2
-  thumbnailOrientation: {x: 0, y: 0, z: 0}
+  thumbnailDistance: 1.5
+  thumbnailOrientation: {x: 0, y: 45, z: 0}
 --- !u!1 &8428792368499078621
 GameObject:
   m_ObjectHideFlags: 0

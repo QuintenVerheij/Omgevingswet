@@ -7,6 +7,8 @@ public class ObjectCreationHandler : BaseModeInputHandler {
     [HideInInspector]public int currentIndex = -1;
 
     public Model[] models; //array of instances of models in the scene, modify this array in the inspector
+    private Model[] builtinModels;
+
     public static ObjectCreationHandler Instance { get; private set; }
     public GameObject placedObjectsParent;
 
@@ -16,12 +18,13 @@ public class ObjectCreationHandler : BaseModeInputHandler {
     public Model customModelPrefab;
 
     private void Awake() {
+        builtinModels = (Model[])models.Clone();
         Instance = this;
     }
 
-    private void LoadAllCustomModels() {
+    public void LoadAllCustomModels() {
         string[] objFiles = MeshIO.GetListOfObjFileNames();
-        List<Model> modelList = new List<Model>(models);
+        List<Model> modelList = new List<Model>(builtinModels);
         
         for (int i = 0; i < objFiles.Length; i++) {
             GameObject instance = Instantiate(customModelPrefab.gameObject);
@@ -37,7 +40,6 @@ public class ObjectCreationHandler : BaseModeInputHandler {
 
     void Start(){
         //OnIndexChange();
-
         LoadAllCustomModels();
     }
 

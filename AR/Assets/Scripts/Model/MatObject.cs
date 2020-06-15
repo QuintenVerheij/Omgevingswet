@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
@@ -10,6 +11,7 @@ public class MatObject
     public int subMeshStartIndex;
     public int subMeshVertexCount;
     public MatObject(Material material, int subMeshStartIndex, int subMeshVertexCount) {
+        Debug.Log("[MatObject init] material shader: " + material.shader.name);
         color = material.color;
         this.subMeshStartIndex = subMeshStartIndex;
         this.subMeshVertexCount = subMeshVertexCount;

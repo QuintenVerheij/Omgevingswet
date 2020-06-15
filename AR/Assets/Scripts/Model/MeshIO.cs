@@ -54,8 +54,8 @@ public static class MeshIO
         var output = MergeMeshes(rootObject);
         string content = ObjExporterScript.MeshToString(output.mesh, rootObject);
         output.mesh.subMeshCount = output.materials.Length;
-
-        File.WriteAllText(objPath, content);
+        string headerInfo = "o Custom_Mesh\n";
+        File.WriteAllText(objPath, headerInfo + content);
         ExportMaterials(matPath, output.materials, output.mesh);
     }
 
@@ -86,6 +86,7 @@ public static class MeshIO
         }
         MatFileContent objContent = new MatFileContent(MatObject.FromArrays(materials,startIndices,vertexCounts));
         string content = JsonUtility.ToJson(objContent, true);
+        
         File.WriteAllText(fullPath, content);
     }
 
@@ -131,5 +132,17 @@ public static class MeshIO
         }
 
         return objFiles.ToArray();
+    }
+
+    public static void DeleteAllCustomModels() {
+        string path = Application.persistentDataPath + "/";
+        var info = new DirectoryInfo(path);
+        var fileInfo = info.GetFiles();
+        foreach (var file in fileInfo) {
+            if (file.Extension == ".obj" || file.Extension == ".json") {
+                File.Delete(file.FullName);
+            }
+        }
+        ObjectCreationHandler.Instance.LoadAllCustomModels(); //refresh the list of models so it only contains build in models
     }
 }

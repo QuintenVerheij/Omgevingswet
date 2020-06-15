@@ -57,4 +57,8 @@ public class MeshTest : MonoBehaviour {
             //instance.GetComponent<MeshFilter>().mesh = mesh;
         }
     }
+
+    public void DeleteAllCustomModels() {
+        MeshIO.DeleteAllCustomModels();
+    }
 }

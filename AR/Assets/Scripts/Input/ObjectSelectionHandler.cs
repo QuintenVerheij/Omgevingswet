@@ -126,18 +126,66 @@ public class ObjectSelectionHandler : BaseModeInputHandler {
         }
         return !containsCustomModel;
     }
+
+    /*private void SetLayerRecursive(GameObject obj, int layer) {
+        obj.layer = layer;
+        foreach (Transform child in obj.transform) {
+            SetLayerRecursive(child.gameObject, layer);
+        }
+    }*/
+
     public void MergeSelectedObjects() {
         if (!CanMergeSelection()) {
             Debug.Log("Cannot merge selection");
             return;
         }
+        GameObject customModelParent = new GameObject();
+        customModelParent.transform.SetParent(modelExporter.transform);
+
         foreach(var model in selectedModels) {
             if (((1 << model.gameObject.layer) & exportInclusionMask.value) != 0) {
                 GameObject modelCopy = Instantiate(model.gameObject);
-                modelCopy.transform.position = EnvironmentHandler.Instance.environmentScene.transform.position - modelCopy.transform.position;
-                modelCopy.transform.SetParent(modelExporter.transform);
+                //modelCopy.transform.position = EnvironmentHandler.Instance.environmentScene.transform.position - modelCopy.transform.position;
+                modelCopy.transform.SetParent(customModelParent.transform);
+
+                //Renderer[] renderers = modelCopy.GetComponentsInChildren<Renderer>();
+                /*for(int i = 0; i < renderers.Length; i++) {
+                    bool shouldBeRemoved = false;
+                    for (int j = 0; j < renderers[i].materials.Length; j++) {
+                        if (renderers[i].materials[j] == null || !renderers[i].materials[j].HasProperty("_Color")) {
+                            shouldBeRemoved = true;
+                        }
+                    }
+                    if (shouldBeRemoved) {
+                        Destroy(renderers[i].gameObject);
+                    }
+                }*/
+
             }
         }
-        modelExporter.Save();
+
+        Model[] modelComponentCopies = customModelParent.GetComponentsInChildren<Model>();
+        Renderer[] renderers = customModelParent.GetComponentsInChildren<Renderer>();
+
+        for (int i = 0; i < modelComponentCopies.Length; i++) {
+            DestroyImmediate(modelComponentCopies[i]);
+        }
+
+        for(int i = 0; i < renderers.Length; i++) {
+            bool shouldBeRemoved = false;
+            foreach (var m in renderers[i].materials) {
+                if (!m.HasProperty("_Color")) {
+                    shouldBeRemoved = true;
+                }
+            }
+            if (shouldBeRemoved) {
+                DestroyImmediate(renderers[i].gameObject);
+            }
+        }
+        if (modelExporter.GetComponentInChildren<Renderer>()) {
+            modelExporter.Save();
+            ObjectCreationHandler.Instance.LoadAllCustomModels();
+        }
+        modelExporter.Clear();
     }
 }

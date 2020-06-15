@@ -24,14 +24,25 @@ public class ThumbnailManager : MonoBehaviour{
         return renderTexture;
     }
 
+    private void SetLayerRecursive(GameObject obj, int layer) {
+        obj.layer = layer;
+        foreach (Transform child in obj.transform) {
+            SetLayerRecursive(child.gameObject, layer);
+        }
+    }
+
     public IEnumerator ThumbnailCoroutine() {
         while (true) {
             if (thumbnailQueue.Count > 0) {
                 PrefabData data = thumbnailQueue.Dequeue();
 
                 Vector3 position = data.thumbnailCamera.transform.position + data.thumbnailCamera.transform.forward * data.distance;
-                GameObject thumbnailObject = Instantiate(data.prefab, position, data.orientation);
+                data.prefab.SetActive(true);
+                GameObject thumbnailObject = Instantiate(data.prefab, data.thumbnailCamera.transform);
+                thumbnailObject.transform.position = position;
+                thumbnailObject.transform.localRotation = data.orientation;
 
+                SetLayerRecursive(thumbnailObject, data.thumbnailCamera.gameObject.layer);
                 data.thumbnailCamera.targetTexture = data.texture;
                 data.thumbnailCamera.Render();
 
