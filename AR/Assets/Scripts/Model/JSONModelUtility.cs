@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
+using Newtonsoft.Json;
 
 [System.Serializable]
 public class JSONModel {
@@ -31,9 +32,8 @@ public class JSONCombinedModel {
             };
         }
     }
-
     public static string ToJSON(JSONCombinedModel model) {
-        return JsonUtility.ToJson(model);
+        return JsonConvert.SerializeObject(model);
     }
 }
 
