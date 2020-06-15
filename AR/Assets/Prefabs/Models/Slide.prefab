@@ -100,7 +100,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   highlightPrefab: {fileID: 8435184985971595212, guid: 3bf136307118a454aae15e18800ec27b,
     type: 3}
-  highlightInstances: []
+  thumbnailDistance: 0.5
+  thumbnailOrientation: {x: 0, y: 45, z: 0}
 --- !u!1 &8126683659583594275
 GameObject:
   m_ObjectHideFlags: 0
