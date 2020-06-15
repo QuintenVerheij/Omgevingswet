@@ -9,7 +9,7 @@ public class ModelPageNumber : MonoBehaviour
     void Update()
     {
         int slotCount = ModelSlotManager.Instance.slots.Length;
-        int prefabCount = ObjectCreationHandler.Instance.models.Length;
+        int prefabCount = ObjectCreationHandler.Instance.models.Count;
         int lastPageIndex = prefabCount / slotCount + 1;
 
         int page = ModelSlotManager.Instance.currentPage + 1;

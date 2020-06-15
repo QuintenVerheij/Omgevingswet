@@ -21,7 +21,7 @@ public class ModelSlotManager : MonoBehaviour{
 
     public void UpdateSlots() {
         int slotCount = slots.Length;
-        int prefabCount = ObjectCreationHandler.Instance.models.Length;
+        int prefabCount = ObjectCreationHandler.Instance.models.Count;
 
         navigationUIGroup.SetActive(prefabCount > slotCount);
         if (prefabCount <= slotCount) {
@@ -42,7 +42,7 @@ public class ModelSlotManager : MonoBehaviour{
 
     public void NextPage() {
         int slotCount = slots.Length;
-        int prefabCount = ObjectCreationHandler.Instance.models.Length;
+        int prefabCount = ObjectCreationHandler.Instance.models.Count;
         int lastPageIndex = prefabCount / slotCount;
 
         currentPage += 1;
@@ -54,7 +54,7 @@ public class ModelSlotManager : MonoBehaviour{
 
     public void PreviousPage() {
         int slotCount = slots.Length;
-        int prefabCount = ObjectCreationHandler.Instance.models.Length;
+        int prefabCount = ObjectCreationHandler.Instance.models.Count;
         int lastPageIndex = prefabCount / slotCount;
 
         currentPage -= 1;

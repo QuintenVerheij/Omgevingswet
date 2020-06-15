@@ -143,6 +143,6 @@ public static class MeshIO
                 File.Delete(file.FullName);
             }
         }
-        ObjectCreationHandler.Instance.LoadAllCustomModels(); //refresh the list of models so it only contains build in models
+        //ObjectCreationHandler.Instance.LoadAllCustomModels(); //refresh the list of models so it only contains build in models
     }
 }

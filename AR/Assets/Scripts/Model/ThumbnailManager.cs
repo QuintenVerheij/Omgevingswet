@@ -37,8 +37,9 @@ public class ThumbnailManager : MonoBehaviour{
                 PrefabData data = thumbnailQueue.Dequeue();
 
                 Vector3 position = data.thumbnailCamera.transform.position + data.thumbnailCamera.transform.forward * data.distance;
-                data.prefab.SetActive(true);
                 GameObject thumbnailObject = Instantiate(data.prefab, data.thumbnailCamera.transform);
+                thumbnailObject.SetActive(true);
+
                 thumbnailObject.transform.position = position;
                 thumbnailObject.transform.localRotation = data.orientation;
 

@@ -18,7 +18,7 @@ public class PrefabNameText : MonoBehaviour
         if (ARInputState.Instance.CurrentMode == ARInputState.Mode.AddObjects) {
             ObjectCreationHandler handler = ObjectCreationHandler.Instance;
             int index = handler.currentIndex;
-            int modelCount = handler.models.Length;
+            int modelCount = handler.models.Count;
             GameObject currentPrefab = handler.models[index].gameObject;
             text.text = currentPrefab.name + " (" + (index+1) +"/"+ modelCount + ")";
         }

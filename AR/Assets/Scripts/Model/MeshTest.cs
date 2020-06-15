@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.IO;
 
-public class MeshTest : MonoBehaviour {
+/*public class MeshTest : MonoBehaviour {
     public Material defaultMaterial;
 
     //public GameObject importPrefab;
@@ -61,4 +61,4 @@ public class MeshTest : MonoBehaviour {
     public void DeleteAllCustomModels() {
         MeshIO.DeleteAllCustomModels();
     }
-}
+}*/

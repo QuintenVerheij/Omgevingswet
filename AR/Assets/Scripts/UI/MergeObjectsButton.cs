@@ -11,15 +11,15 @@ public class MergeObjectsButton : MonoBehaviour
 
     public void Update() {
         var handler = ObjectSelectionHandler.Instance;
-        bool visible = handler.CanMergeSelection();
+        bool visible = handler.CanCombineSelectedModels();
         text.enabled = visible;
         button.enabled = visible;
         image.enabled = visible;
     }
     public void OnPress() {
         var handler = ObjectSelectionHandler.Instance;
-        if (handler.CanMergeSelection()) {
-            handler.MergeSelectedObjects();
+        if (handler.CanCombineSelectedModels()) {
+            handler.CombineSelectedModels();    
         }
     }
 }

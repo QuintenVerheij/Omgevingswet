@@ -10,6 +10,7 @@ public class ObjectSelectionHandler : BaseModeInputHandler {
     public static ObjectSelectionHandler Instance { get; private set; }
     private HashSet<Model> selectedModels = new HashSet<Model>();
     public GameObject uiGroup_selections;
+    public Transform placedModelFolder;
 
     public GridMode CurrentGridMode { get; private set; }
     public GameObject gridPlane_xz;
@@ -17,8 +18,7 @@ public class ObjectSelectionHandler : BaseModeInputHandler {
     public GameObject gridPlane_yz;
     public GridDisplay gridDisplay;
 
-    public MeshTest modelExporter;
-    public LayerMask exportInclusionMask;
+    //public LayerMask exportInclusionMask;
 
     void Awake()
     {
@@ -42,6 +42,11 @@ public class ObjectSelectionHandler : BaseModeInputHandler {
 
     public override void OnScreenPointHitEnd(RaycastHit hit, Vector3 startPosition, Vector3 currentPosition) {
         Model model = hit.transform.GetComponent<Model>();
+        if (!model) {
+            var modelPart = hit.transform.GetComponent<CombinedModelPart>();
+            if(modelPart)
+                model = modelPart.model;
+        }
         if (model) {
             bool selected = selectedModels.Contains(model);
             model.SetHighlight(!selected);
@@ -113,19 +118,7 @@ public class ObjectSelectionHandler : BaseModeInputHandler {
         gridPlane_yz.SetActive(CurrentGridMode == GridMode.YZ);
     }
 
-    public bool CanMergeSelection() {
-        bool containsCustomModel = false;
-        if(selectedModels.Count == 0) {
-            return false;
-        }
-
-        foreach(var model in selectedModels) {
-            if (model.isCustomModel) {
-                containsCustomModel = true;
-            }
-        }
-        return !containsCustomModel;
-    }
+    
 
     /*private void SetLayerRecursive(GameObject obj, int layer) {
         obj.layer = layer;
@@ -134,58 +127,22 @@ public class ObjectSelectionHandler : BaseModeInputHandler {
         }
     }*/
 
-    public void MergeSelectedObjects() {
-        if (!CanMergeSelection()) {
-            Debug.Log("Cannot merge selection");
-            return;
-        }
-        GameObject customModelParent = new GameObject();
-        customModelParent.transform.SetParent(modelExporter.transform);
+    public bool CanCombineSelectedModels() {
+        Model[] modelArray = new Model[selectedModels.Count];
+        selectedModels.CopyTo(modelArray);
+        return JSONModelUtility.CanCombineModels(modelArray);
+    }
+    public void CombineSelectedModels() {
+        Model[] modelArray = new Model[selectedModels.Count];
+        selectedModels.CopyTo(modelArray);
+        if (CanCombineSelectedModels()) {
+            CombinedModel obj = JSONModelUtility.CombineModels(modelArray, placedModelFolder);
+            ObjectCreationHandler.Instance.AddCustomModel(obj);
 
-        foreach(var model in selectedModels) {
-            if (((1 << model.gameObject.layer) & exportInclusionMask.value) != 0) {
-                GameObject modelCopy = Instantiate(model.gameObject);
-                //modelCopy.transform.position = EnvironmentHandler.Instance.environmentScene.transform.position - modelCopy.transform.position;
-                modelCopy.transform.SetParent(customModelParent.transform);
-
-                //Renderer[] renderers = modelCopy.GetComponentsInChildren<Renderer>();
-                /*for(int i = 0; i < renderers.Length; i++) {
-                    bool shouldBeRemoved = false;
-                    for (int j = 0; j < renderers[i].materials.Length; j++) {
-                        if (renderers[i].materials[j] == null || !renderers[i].materials[j].HasProperty("_Color")) {
-                            shouldBeRemoved = true;
-                        }
-                    }
-                    if (shouldBeRemoved) {
-                        Destroy(renderers[i].gameObject);
-                    }
-                }*/
-
+            foreach (var model in selectedModels) {
+                model.SetHighlight(false);
             }
+            selectedModels.Clear();
         }
-
-        Model[] modelComponentCopies = customModelParent.GetComponentsInChildren<Model>();
-        Renderer[] renderers = customModelParent.GetComponentsInChildren<Renderer>();
-
-        for (int i = 0; i < modelComponentCopies.Length; i++) {
-            DestroyImmediate(modelComponentCopies[i]);
-        }
-
-        for(int i = 0; i < renderers.Length; i++) {
-            bool shouldBeRemoved = false;
-            foreach (var m in renderers[i].materials) {
-                if (!m.HasProperty("_Color")) {
-                    shouldBeRemoved = true;
-                }
-            }
-            if (shouldBeRemoved) {
-                DestroyImmediate(renderers[i].gameObject);
-            }
-        }
-        if (modelExporter.GetComponentInChildren<Renderer>()) {
-            modelExporter.Save();
-            ObjectCreationHandler.Instance.LoadAllCustomModels();
-        }
-        modelExporter.Clear();
     }
 }

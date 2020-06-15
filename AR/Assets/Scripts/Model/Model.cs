@@ -13,7 +13,11 @@ public class Model : MonoBehaviour{
 
 	public GameObject highlightPrefab; //prefab that contains the outline shader
 	private List<GameObject> highlightInstances = new List<GameObject>(); //instances of highlight prefab. In order to access them they need to be stored in a list
-	public bool isCustomModel = false;
+	public bool IsCustomModel {
+		get{ return GetComponent<CombinedModel>() != null; }
+	}
+	[HideInInspector]public int modelIndex = -1;
+
 	[Header("Thumbnail Settings")]
 	public float thumbnailDistance = 2;
 	public Vector3 thumbnailOrientation = new Vector3(0,0,0);
@@ -52,5 +56,11 @@ public class Model : MonoBehaviour{
 		foreach (var instance in highlightInstances) {
 			instance.SetActive(active);
 		}
+	}
+
+	public void CopyTo(Model destinationModel) {
+		destinationModel.highlightPrefab = highlightPrefab;
+		destinationModel.thumbnailDistance = thumbnailDistance;
+		destinationModel.thumbnailOrientation = thumbnailOrientation;
 	}
 }
