@@ -3,27 +3,31 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 using Newtonsoft.Json;
+using System;
 
-[System.Serializable]
+[Serializable]
 public class JSONModel {
-    public int modelIndex;
-    public Vector3 position;
-    public Quaternion rotation;
-    public Vector3 scale;
+    [SerializeField]public int modelIndex;
+    [SerializeField] public Vector3 position;
+    [SerializeField] public Quaternion rotation;
+    [SerializeField] public Vector3 scale;
 }
-[System.Serializable]
+[Serializable]
 public class JSONCombinedModel {
-    JSONModel[] models;
+    [SerializeField] JSONModel[] models;
 
     public JSONCombinedModel(CombinedModel combinedModel) {
-        models = new JSONModel[combinedModel.modelIndices.Count];
+        Debug.Log($"[ExportCustomModel] combinedModel name: {combinedModel.transform.name}, child count: {combinedModel.transform.childCount}");
+
+        this.models = new JSONModel[combinedModel.modelIndices.Count];
         if (combinedModel.modelIndices.Count != combinedModel.transform.childCount) {
             Debug.LogError("Amount of modelIndices and children of combined model SHOULD BE EQUAL!");
         }
-        for (int i = 0; i < models.Length; i++) {
+        for (int i = 0; i < this.models.Length; i++) {
             Transform child = combinedModel.transform.GetChild(i);
+            Debug.Log($"[ExportCustomModel] {i}, child name: {child.name}");
 
-            models[i] = new JSONModel
+            this.models[i] = new JSONModel
             {
                 modelIndex = combinedModel.modelIndices[i],
                 position = child.transform.localPosition,
@@ -33,7 +37,7 @@ public class JSONCombinedModel {
         }
     }
     public static string ToJSON(JSONCombinedModel model) {
-        return JsonConvert.SerializeObject(model);
+        return JsonUtility.ToJson(model);
     }
 }
 
