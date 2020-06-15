@@ -1,9 +1,46 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.IO;
+
+[System.Serializable]
+public class JSONModel {
+    public int modelIndex;
+    public Vector3 position;
+    public Quaternion rotation;
+    public Vector3 scale;
+}
+[System.Serializable]
+public class JSONCombinedModel {
+    JSONModel[] models;
+
+    public JSONCombinedModel(CombinedModel combinedModel) {
+        models = new JSONModel[combinedModel.modelIndices.Count];
+        if (combinedModel.modelIndices.Count != combinedModel.transform.childCount) {
+            Debug.LogError("Amount of modelIndices and children of combined model SHOULD BE EQUAL!");
+        }
+        for (int i = 0; i < models.Length; i++) {
+            Transform child = combinedModel.transform.GetChild(i);
+
+            models[i] = new JSONModel
+            {
+                modelIndex = combinedModel.modelIndices[i],
+                position = child.transform.localPosition,
+                rotation = child.transform.localRotation,
+                scale = child.transform.localScale
+            };
+        }
+    }
+
+    public static string ToJSON(JSONCombinedModel model) {
+        return JsonUtility.ToJson(model);
+    }
+}
 
 public class JSONModelUtility : MonoBehaviour
 {
+    
+
     public static bool CanCombineModels(Model[] models) {
         bool containsCustomModel = false;
         if (models.Length < 2) {
@@ -26,6 +63,15 @@ public class JSONModelUtility : MonoBehaviour
             return null;
         }
     }*/
+    public static void ExportCustomModel(string localPath, CombinedModel combinedModel) {
+        string path = Application.persistentDataPath + "/" + localPath + ".json";
+        JSONCombinedModel jsonModel = new JSONCombinedModel(combinedModel);
+        Debug.Log("JSON CONTENT:\n"+JSONCombinedModel.ToJSON(jsonModel));
+        Debug.Log("Exporting json file to '" + path + "'");
+
+        File.WriteAllText(path, JSONCombinedModel.ToJSON(jsonModel));
+    }
+
     private static Model[] LoadPrefabModels(Model[] sceneModels) {
         Model[] models = new Model[sceneModels.Length];
         for(int i = 0; i < sceneModels.Length; i++) {

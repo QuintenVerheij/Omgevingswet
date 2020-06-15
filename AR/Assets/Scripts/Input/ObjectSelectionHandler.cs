@@ -138,6 +138,8 @@ public class ObjectSelectionHandler : BaseModeInputHandler {
         if (CanCombineSelectedModels()) {
             CombinedModel obj = JSONModelUtility.CombineModels(modelArray, placedModelFolder);
             ObjectCreationHandler.Instance.AddCustomModel(obj);
+            //JSONCombinedModel jsonCombinedModel = new JSONCombinedModel(obj);
+            JSONModelUtility.ExportCustomModel(obj.transform.name, obj);
 
             foreach (var model in selectedModels) {
                 model.SetHighlight(false);
