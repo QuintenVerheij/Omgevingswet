@@ -33,6 +33,9 @@
 		private Plane _groundPlane = new Plane(Vector3.up, 0);
 		private bool _dragStartedOnUI = false;
 
+		public SaveModel saveModel;
+		public SpawnOnMap spawn;
+
 		void Awake()
 		{
 			if (null == _referenceCamera)
@@ -179,6 +182,13 @@
 				var pos = _referenceCamera.ScreenToWorldPoint(mousePosScreen);
 
 				var latlongDelta = _mapManager.WorldToGeoPosition(pos);
+				if(saveModel != null){
+					saveModel.latitude = latlongDelta.x;
+					saveModel.longitude = latlongDelta.y;
+					if(spawn != null){
+						spawn.moveMarker(latlongDelta.x, latlongDelta.y);
+					}
+				}
 				Debug.Log("Latitude: " + latlongDelta.x + " Longitude: " + latlongDelta.y);
 			}
 
