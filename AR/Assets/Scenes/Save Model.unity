@@ -672,11 +672,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 390441736}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2c699b8e1864b4b248acb7a04ede9480, type: 3}
+  m_Script: {fileID: 11500000, guid: ea5435f70a6ad4d419d327367b6fef13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _panSpeed: 1
-  _zoomSpeed: 3
+  _zoomSpeed: 0.25
   _referenceCamera: {fileID: 368255923}
   _mapManager: {fileID: 390441741}
   _useDegreeMethod: 0
