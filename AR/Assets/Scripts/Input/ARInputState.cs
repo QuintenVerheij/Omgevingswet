@@ -124,6 +124,10 @@ public class ARInputState : MonoBehaviour
                     currentHandler.OnScreenPointHitEnd(hit, touch.start.position, touch.current.position); //execute event
                 }
             }
+
+            if(touch.current.phase == TouchPhase.Moved) {
+                currentHandler.OnScreenPointMove(touch.current.deltaPosition);
+            }
         }
         else if(keys.Length == 2){ //two finger presses
             TouchLifespan touch0 = storedTouches[keys[0]];

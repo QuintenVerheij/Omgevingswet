@@ -29,6 +29,11 @@ public class BaseModeInputHandler : MonoBehaviour{
 
     }
 
+    //delta = difference between the current and previous position in pixel coordinates
+    public virtual void OnScreenPointMove(Vector3 delta) {
+
+    }
+
     //happens when two fingers are present on the screen
     //angleDelta is the angle difference between the current and last frame that has been calculated with the two finger positions
     public virtual void OnMultiTouchRotate(float angleDelta) {

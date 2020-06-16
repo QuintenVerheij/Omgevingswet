@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ObjectSelectionHandler : BaseModeInputHandler {
-    public enum GridMode {
-        XZ, XY, YZ
+    public enum PlacementMode {
+        XZ, Y
     }
 
     public static ObjectSelectionHandler Instance { get; private set; }
@@ -12,11 +12,10 @@ public class ObjectSelectionHandler : BaseModeInputHandler {
     public GameObject uiGroup_selections;
     public Transform placedModelFolder;
 
-    public GridMode CurrentGridMode { get; private set; }
+    public PlacementMode ObjectMovementMode { get; private set; }
     public GameObject gridPlane_xz;
-    public GameObject gridPlane_xy;
-    public GameObject gridPlane_yz;
     public GridDisplay gridDisplay;
+    public float yAxisMovementSensitivity = 10;
 
     //public LayerMask exportInclusionMask;
 
@@ -27,7 +26,6 @@ public class ObjectSelectionHandler : BaseModeInputHandler {
 
     private void OnEnable() {
         uiGroup_selections.SetActive(true);
-        OnGridModeChange();
     }
 
     private void OnDisable() {
@@ -37,7 +35,7 @@ public class ObjectSelectionHandler : BaseModeInputHandler {
             model.SetHighlight(false);
         }
         selectedModels.Clear();
-        CurrentGridMode = GridMode.XZ;
+        ObjectMovementMode = PlacementMode.XZ;
     }
 
     public override void OnScreenPointHitEnd(RaycastHit hit, Vector3 startPosition, Vector3 currentPosition) {
@@ -60,24 +58,23 @@ public class ObjectSelectionHandler : BaseModeInputHandler {
     }
 
     public override void OnPlaneTouchMove(Vector3 delta) {
-        /*if(CurrentGridMode == GridMode.XZ) {
+        if(ObjectMovementMode == PlacementMode.XZ) {
             foreach (var model in selectedModels) {
                 model.transform.position += new Vector3(delta.x, 0, delta.z);
             }
         }
-        else if (CurrentGridMode == GridMode.XY) {
-            foreach (var model in selectedModels) {
-                model.transform.position += new Vector3(delta.x, delta.z, 0);
-            }
-        }
-        else if (CurrentGridMode == GridMode.YZ) {
-            foreach (var model in selectedModels) {
-                model.transform.position += new Vector3(0, delta.x, delta.z);
-            }
-        }*/
 
-        foreach (var model in selectedModels) {
+        /*foreach (var model in selectedModels) {
             model.transform.position += delta;
+        }*/
+    }
+
+    public override void OnScreenPointMove(Vector3 delta) {
+        delta /= Screen.height;
+        if (ObjectMovementMode == PlacementMode.Y) {
+            foreach (var model in selectedModels) {
+                model.transform.position += new Vector3(0, delta.y * yAxisMovementSensitivity, 0);
+            }
         }
     }
 
@@ -104,28 +101,9 @@ public class ObjectSelectionHandler : BaseModeInputHandler {
         }
     }
 
-    public void NextGridMode() {
-        CurrentGridMode += 1;
-        if (CurrentGridMode > GridMode.YZ) {
-            CurrentGridMode = GridMode.XZ;
-        }
-        OnGridModeChange();
+    public void NextMovementMode() {
+        ObjectMovementMode = (ObjectMovementMode == PlacementMode.XZ) ? PlacementMode.Y : PlacementMode.XZ;
     }
-
-    public void OnGridModeChange() {
-        gridPlane_xz.SetActive(CurrentGridMode == GridMode.XZ);
-        gridPlane_xy.SetActive(CurrentGridMode == GridMode.XY);
-        gridPlane_yz.SetActive(CurrentGridMode == GridMode.YZ);
-    }
-
-    
-
-    /*private void SetLayerRecursive(GameObject obj, int layer) {
-        obj.layer = layer;
-        foreach (Transform child in obj.transform) {
-            SetLayerRecursive(child.gameObject, layer);
-        }
-    }*/
 
     public bool CanCombineSelectedModels() {
         Model[] modelArray = new Model[selectedModels.Count];
