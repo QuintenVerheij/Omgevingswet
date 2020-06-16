@@ -51,7 +51,7 @@ public class LoginRequest : MonoBehaviour
                 currentUser cu = new currentUser();
                 cu.writeUserId(output.userId ?? default(int));
                 cu.writeToken(output.token);
-                SceneManager.LoadScene(2);
+                SceneManager.LoadScene(3);
             }
             else
             {
@@ -60,11 +60,6 @@ public class LoginRequest : MonoBehaviour
             }
         }
 
-    }
-
-    public void CheckInputFields()
-    {
-        loginButton.interactable = (userName.text.Length >= 1 && password.text.Length >= 1);
     }
 
 }
