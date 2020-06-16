@@ -21,8 +21,17 @@ public class ObjectCreationHandler : BaseModeInputHandler {
         for(int i = 0; i < models.Count; i++) {
             models[i].modelIndex = i;
         }
+        ImportCustomModels();
     }
 
+    private void ImportCustomModels() {
+        string[] names = JSONModelUtility.GetListOfJSONFileNames();
+        for(int i = 0; i < names.Length; i++) {
+            CombinedModel model = JSONModelUtility.ImportCustomModel(names[i], customModelPrefabFolder.transform);
+            AddCustomModel(model);
+            Destroy(model.gameObject);
+        }
+    }
     void Start(){
         //OnIndexChange();
         //LoadAllCustomModels();

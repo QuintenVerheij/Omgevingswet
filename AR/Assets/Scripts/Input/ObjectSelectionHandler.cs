@@ -136,7 +136,7 @@ public class ObjectSelectionHandler : BaseModeInputHandler {
         Model[] modelArray = new Model[selectedModels.Count];
         selectedModels.CopyTo(modelArray);
         if (CanCombineSelectedModels()) {
-            CombinedModel obj = JSONModelUtility.CombineModels(modelArray, placedModelFolder);
+            CombinedModel obj = JSONModelUtility.CombineModels(modelArray, placedModelFolder, $"Custom Model-{System.DateTime.Now.Ticks}");
             ObjectCreationHandler.Instance.AddCustomModel(obj);
             //JSONCombinedModel jsonCombinedModel = new JSONCombinedModel(obj);
             JSONModelUtility.ExportCustomModel(obj.transform.name, obj);
