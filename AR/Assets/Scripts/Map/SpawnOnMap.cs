@@ -82,6 +82,7 @@ public class SpawnOnMap : MonoBehaviour
             }
             _locations = new Vector2d[markers.Length];
             _spawnedObjects = new List<GameObject>();
+            List<ClickMarker> m = new List<ClickMarker>();
             //Populate marker objects with data
             for (int i = 0; i < markers.Length; i++)
             {
@@ -95,11 +96,11 @@ public class SpawnOnMap : MonoBehaviour
                 //Set markerdata in OnClickScript for marker
                 ClickMarker CM = instance.GetComponent("ClickMarker") as ClickMarker;
                 CM.SetMarkerData(marker);
-                
+                m.Add(CM);
 
                 _spawnedObjects.Add(instance);
             }
-
+        _map.GetComponent<QuadTreeCameraMovement>().markers = m.ToArray();
         }
     }
 

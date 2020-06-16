@@ -188,7 +188,8 @@
                 {
                     foreach (ClickMarker marker in markers)
                     {
-                        if (marker.getMarkerData().longitude - latlongDelta.y < 1 && marker.getMarkerData().latitude - latlongDelta.x < 1)
+						// Debug.Log(marker.getMarkerData().latitude.ToString() + " , " + marker.getMarkerData().longitude.ToString());
+                        if (Math.Abs(marker.getMarkerData().longitude - latlongDelta.x) < 1 && Math.Abs(marker.getMarkerData().latitude - latlongDelta.y) < 1)
                         {
 							marker.showPopup();
                         }
