@@ -906,6 +906,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &779995894 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 239460048864629141, guid: 88e8080e4f01ed44da75494d65d5068e,
+    type: 3}
+  m_PrefabInstance: {fileID: 1955499653}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04aab7c7ae07ddd4cb670e49efff0822, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &787216077
 GameObject:
   m_ObjectHideFlags: 0
@@ -1950,6 +1962,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 427439768}
     m_Modifications:
+    - target: {fileID: 118070424259376496, guid: 88e8080e4f01ed44da75494d65d5068e,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 779995894}
+    - target: {fileID: 118070424259376496, guid: 88e8080e4f01ed44da75494d65d5068e,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SceneLoader
+      objectReference: {fileID: 0}
     - target: {fileID: 446646588595227104, guid: 88e8080e4f01ed44da75494d65d5068e,
         type: 3}
       propertyPath: m_Name
