@@ -105,8 +105,10 @@ public class ARInputState : MonoBehaviour
                         }
                         else if (touch.current.phase == TouchPhase.Moved && touch.hasHitPlane) {
                             Vector3 delta = hit.point - touch.lastPlaneHitPos;
-                            touch.lastPlaneHitPos = hit.point;
                             currentHandler.OnPlaneTouchMove(delta); //execute event
+                            currentHandler.OnPlaneTouchMove(touch.firstPlaneHitPos, touch.lastPlaneHitPos, hit.point); //execute event
+                            touch.lastPlaneHitPos = hit.point;
+
                         }
                         break;
                     }

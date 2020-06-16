@@ -18,6 +18,8 @@ public class EnvironmentHandler : BaseModeInputHandler {
 
     public GridDisplay gridDisplay;
 
+    private Vector3 initialPosition;
+
     public static EnvironmentHandler Instance { get; private set; }
     private void Awake() {
         Instance = this;
@@ -25,6 +27,7 @@ public class EnvironmentHandler : BaseModeInputHandler {
 
     void Start() {
         environment.SetActive(false);
+        initialPosition = environmentScene.transform.position;
     }
 
     private void SetARLayerVisibility(bool visible) {
@@ -57,10 +60,18 @@ public class EnvironmentHandler : BaseModeInputHandler {
         SetARLayerVisibility(false);
     }
 
-    public override void OnPlaneTouchMove(Vector3 delta) {
+    public override void OnPlaneTouchMove(Vector3 startPosition, Vector3 prevPosition, Vector3 currentPosition) {
         if (environment.activeInHierarchy) {
-            environmentScene.transform.position += delta;
+            Vector3 pos = this.initialPosition + (currentPosition - startPosition);
+            environmentScene.transform.position = new Vector3(pos.x, environmentScene.transform.position.y, pos.z);
         }
+    }
+
+    public override void OnPlaneTouchBegin(Vector3 position) {
+        this.initialPosition = environmentScene.transform.position;
+    }
+    public override void OnPlaneTouchEnd(Vector3 startPosition, Vector3 currentPosition) {
+        this.initialPosition = environmentScene.transform.position;
     }
 
     public override void OnMultiTouchRotate(float angleDelta) {

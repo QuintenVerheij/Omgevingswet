@@ -13,6 +13,10 @@ public class BaseModeInputHandler : MonoBehaviour{
 
     }
 
+    public virtual void OnPlaneTouchMove(Vector3 startPosition, Vector3 prevPosition, Vector3 currentPosition) {
+
+    }
+
     //happens when the user lifts up his finger and the touch has hit the plane at least once during its lifetime (only ONE finger)
     //startposition is the first position of the touch, currentPosition is the most recent position
     //startposition & currentposition are world space positions from plane hits
