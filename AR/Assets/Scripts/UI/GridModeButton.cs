@@ -18,11 +18,11 @@ public class GridModeButton : MonoBehaviour {
     }
 
     public void DisplayCurrentMode() {
-        var mode = ObjectSelectionHandler.Instance.CurrentGridMode;
+        var mode = ObjectSelectionHandler.Instance.ObjectMovementMode;
         buttonText.text = mode.ToString();
     }
     public void OnPress() {
-        ObjectSelectionHandler.Instance.NextGridMode();
+        ObjectSelectionHandler.Instance.NextMovementMode();
         DisplayCurrentMode();
     }
 }

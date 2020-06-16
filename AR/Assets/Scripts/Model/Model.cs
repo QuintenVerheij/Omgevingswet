@@ -4,12 +4,6 @@ using UnityEngine;
 
 //Model class is used for every object a user can place in the ar scene
 public class Model : MonoBehaviour{
-	/*public enum Type {
-		Voorwerp,
-		Gebouw,
-		Infrastructuur
-	}*/
-	//public Type type;
 
 	public GameObject highlightPrefab; //prefab that contains the outline shader
 	private List<GameObject> highlightInstances = new List<GameObject>(); //instances of highlight prefab. In order to access them they need to be stored in a list
@@ -23,6 +17,7 @@ public class Model : MonoBehaviour{
 	public Vector3 thumbnailOrientation = new Vector3(0,0,0);
 
 	private void CreateHighlightObject(MeshFilter parentMeshFilter) { 
+
 		GameObject copy = Instantiate(highlightPrefab, parentMeshFilter.transform); //creates an instance of the highlight prefab
 		int submeshCount = parentMeshFilter.sharedMesh.subMeshCount;
 		copy.GetComponent<MeshFilter>().sharedMesh = parentMeshFilter.sharedMesh;
@@ -42,12 +37,15 @@ public class Model : MonoBehaviour{
 		highlightInstances.Add(copy);
 	}
 	private void Start() {
-		MeshFilter filter = GetComponent<MeshFilter>(); //A MeshFilter is just a component that contains a mesh
-		if (filter) {
-			CreateHighlightObject(filter);
-		}
+		CreateHighlights();
+		//SetHighlight(true); //test
+	}
+
+	public void CreateHighlights() {
+		highlightInstances = new List<GameObject>();
+
 		MeshFilter[] childFilters = GetComponentsInChildren<MeshFilter>(); //meshes in child objects also needs to highlighted
-		foreach(var childFilter in childFilters) {
+		foreach (var childFilter in childFilters) {
 			CreateHighlightObject(childFilter);
 		}
 	}

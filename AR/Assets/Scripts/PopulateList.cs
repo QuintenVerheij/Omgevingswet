@@ -18,6 +18,7 @@ public class PopulateList : MonoBehaviour
             Texture2D newTexture = new Texture2D(650, 550, TextureFormat.ARGB4444, false);
             newTexture.LoadImage(model.preview);
             newTexture.Apply();
+            newObj.GetComponentInChildren<ModelIdHolder>().modelId = model.id;
             newObj.GetComponentInChildren<RawImage>().texture = newTexture;
             Debug.Log("LOADED");
             //newObj.GetComponent<ViewOtherModel>().SetModelID(model.id);

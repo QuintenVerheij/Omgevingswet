@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7822001454023691888}
   - component: {fileID: 5509420445476840138}
   - component: {fileID: 685276479303816380}
-  - component: {fileID: 2606529402939755815}
+  - component: {fileID: 6278934515957487938}
   m_Layer: 0
   m_Name: OURMarker
   m_TagString: Untagged
@@ -99,7 +99,7 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2448403662358801943}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &2606529402939755815
+--- !u!114 &6278934515957487938
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -111,4 +111,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d807a50164fd3bc4089e160c181cdfa3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canvas: {fileID: 5916756926224834910, guid: d08bb20d9a3670c47865fdcdd622b102, type: 3}

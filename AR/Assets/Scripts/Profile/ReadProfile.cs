@@ -5,6 +5,9 @@ using UnityEngine.Networking;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using System.IO;
+#if PLATFORM_ANDROID
+using UnityEngine.Android;
+#endif
 
 public class ReadProfile : MonoBehaviour, IPointerClickHandler
 {
@@ -54,11 +57,18 @@ public class ReadProfile : MonoBehaviour, IPointerClickHandler
             StartCoroutine(GetOtherUser());
         }
         StartCoroutine(GetPic());
+
+#if PLATFORM_ANDROID
+        if (!Permission.HasUserAuthorizedPermission(Permission.Camera))
+        {
+            Permission.RequestUserPermission(Permission.Camera);
+        }
+#endif
     }
 
     IEnumerator GetPic()
     {
-        UnityWebRequest uwr = new UnityWebRequest("localhost:8080/user/img/" + crossedId, "GET");
+        UnityWebRequest uwr = new UnityWebRequest(AppStartup.APIURL + ":8080/user/img/" + crossedId, "GET");
         uwr.downloadHandler = (DownloadHandler)new DownloadHandlerBuffer();
         yield return uwr.SendWebRequest();
         if (uwr.isNetworkError || uwr.isHttpError)
@@ -79,7 +89,7 @@ public class ReadProfile : MonoBehaviour, IPointerClickHandler
     }
     IEnumerator GetOtherUser()
     {
-        string url = "localhost:8080/user/other/read/" + crossedId;
+        string url = AppStartup.APIURL + ":8080/user/other/read/" + crossedId;
         UnityWebRequest net = new UnityWebRequest(url, "GET");
         net.downloadHandler = (DownloadHandler)new DownloadHandlerBuffer();
         yield return net.SendWebRequest();
@@ -110,7 +120,7 @@ public class ReadProfile : MonoBehaviour, IPointerClickHandler
     }
     IEnumerator GetUserInfo()
     {
-        string url = "localhost:8080/user/read";
+        string url = AppStartup.APIURL + ":8080/user/read";
         UnityWebRequest net = new UnityWebRequest(url, "POST");
         net.uploadHandler = (UploadHandler)new UploadHandlerRaw(action.toJsonRaw());
         net.downloadHandler = (DownloadHandler)new DownloadHandlerBuffer();
@@ -180,8 +190,9 @@ public class ReadProfile : MonoBehaviour, IPointerClickHandler
         {
             Debug.Log("Camera");
             WebCamDevice[] devices = WebCamTexture.devices;
-            webCamTexture = new WebCamTexture(devices[0].name);
-            GetComponent<Renderer>().material.mainTexture = webCamTexture; //Add Mesh Renderer to the GameObject to which this script is attached to
+            if (devices.Length > 1) { webCamTexture = new WebCamTexture(devices[1].name);}
+            else { webCamTexture = new WebCamTexture(devices[0].name); }
+            GetComponent<Renderer>().material.mainTexture = webCamTexture;//Add Mesh Renderer to the GameObject to which this script is attached to
             webCamTexture.Play();
 
             showCam = true;
@@ -225,7 +236,7 @@ public class ReadProfile : MonoBehaviour, IPointerClickHandler
     IEnumerator UploadPhoto()
     {
         // byte[] boundary = UnityWebRequest.GenerateBoundary();
-        // UnityWebRequest www = new UnityWebRequest("localhost:8080/user/img/upload?auth=" + user.readToken() + "&input=" + user.readUserId(), "POST");
+        // UnityWebRequest www = new UnityWebRequest("192.168.2.1:8080/user/img/upload?auth=" + user.readToken() + "&input=" + user.readUserId(), "POST");
         // List<IMultipartFormSection> requestData = new List<IMultipartFormSection>();
         // requestData.Add(new MultipartFormDataSection("auth=" + user.readToken() + "&input=" + user.readUserId()));
         // requestData.Add(new MultipartFormFileSection("file", File.ReadAllBytes("Assets/Resources/" + user.readUserId() + "_Profile.png"), "upload.png", "image/png"));
@@ -236,7 +247,7 @@ public class ReadProfile : MonoBehaviour, IPointerClickHandler
         // www.SetRequestHeader("Content-Type", "multipart/form-data");
         WWWForm form = new WWWForm();
         form.AddBinaryData("file", File.ReadAllBytes("Assets/Resources/" + user.readUserId() + "_Profile.png"), "upload.png", "image/png");
-        UnityWebRequest www = UnityWebRequest.Post("localhost:8080/user/img/upload?auth=" + user.readToken() + "&input=" + user.readUserId(), form);
+        UnityWebRequest www = UnityWebRequest.Post(AppStartup.APIURL + ":8080/user/img/upload?auth=" + user.readToken() + "&input=" + user.readUserId(), form);
         yield return www.SendWebRequest();
         if (www.isNetworkError || www.isHttpError)
         {

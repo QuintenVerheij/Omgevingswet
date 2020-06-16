@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 public class MergeObjectsButton : MonoBehaviour
 {
+    public Camera thumbnailCam;
     public TMP_Text text;
     public Button button;
     public Image image;
@@ -19,7 +20,9 @@ public class MergeObjectsButton : MonoBehaviour
     public void OnPress() {
         var handler = ObjectSelectionHandler.Instance;
         if (handler.CanCombineSelectedModels()) {
-            handler.CombineSelectedModels();    
+            handler.CombineSelectedModels(thumbnailCam);    
         }
+
+
     }
 }

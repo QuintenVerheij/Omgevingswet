@@ -63,7 +63,7 @@ public class JSONModelUtility : MonoBehaviour
     }
 
     
-    public static void ExportCustomModel(string localPath, CombinedModel combinedModel) {
+    public static string ExportCustomModel(string localPath, CombinedModel combinedModel) {
         string path = Application.persistentDataPath + "/" + localPath + ".json";
         JSONCombinedModel jsonModel = new JSONCombinedModel(combinedModel);
         string json = JSONCombinedModel.ToJSON(jsonModel);
@@ -71,6 +71,8 @@ public class JSONModelUtility : MonoBehaviour
         Debug.Log("Exporting json file to '" + path + "'");
 
         File.WriteAllText(path, json);
+
+        return path;
     }
 
     public static CombinedModel JSONModelToCombinedModel(JSONCombinedModel jsonCombinedModel, Transform parent, string name) {
@@ -147,16 +149,20 @@ public class JSONModelUtility : MonoBehaviour
 
         Vector3 positionSum = new Vector3();
         for(int i = 0; i < sceneModels.Length; i++) {
-            positionSum += sceneModels[i].transform.localPosition;
+            positionSum += sceneModels[i].transform.position;
         }
         Vector3 averagePosition = new Vector3(positionSum.x / sceneModels.Length, positionSum.y / sceneModels.Length, positionSum.z / sceneModels.Length);
-        combinedModelObject.transform.localPosition = averagePosition;
+        combinedModelObject.transform.position = averagePosition;
 
         for (int i = 0; i < sceneModels.Length; i++) {
-            GameObject newModel = Instantiate(prefabModels[i].gameObject, combinedModelObject.transform);
-            newModel.transform.localPosition = combinedModelObject.transform.localPosition - sceneModels[i].transform.localPosition;
+            GameObject newModel = Instantiate(prefabModels[i].gameObject);
+            //newModel.transform.localPosition = combinedModelObject.transform.localPosition - sceneModels[i].transform.localPosition;
+            newModel.transform.position = sceneModels[i].transform.position;
+            newModel.transform.rotation = sceneModels[i].transform.rotation;
+            newModel.transform.localScale = sceneModels[i].transform.lossyScale;
+            newModel.transform.parent = combinedModelObject.transform;
 
-            Destroy(newModel.GetComponent<Model>());
+            DestroyImmediate(newModel.GetComponent<Model>());
             CombinedModelPart part = newModel.AddComponent<CombinedModelPart>();
             part.model = modelCopy;
         }

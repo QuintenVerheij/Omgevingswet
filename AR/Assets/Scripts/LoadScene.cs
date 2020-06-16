@@ -5,10 +5,23 @@ using UnityEngine;
 
 public class LoadScene : MonoBehaviour
 {
+    private currentUser _cu;
+    void Start()
+    {
+        _cu = new currentUser();
+    }
     public void SceneLoader(int SceneIndex)
     {
-        if(SceneManager.GetActiveScene().buildIndex != SceneIndex) {
-            SceneManager.LoadScene(SceneIndex);
+        if (SceneManager.GetActiveScene().buildIndex != SceneIndex)
+        {
+            if (SceneIndex == 3)
+            {
+                new LoadSceneWithUserId().SceneLoader(_cu.readUserId());
+            }
+            else
+            {
+                SceneManager.LoadScene(SceneIndex);
+            }
         }
     }
 }
