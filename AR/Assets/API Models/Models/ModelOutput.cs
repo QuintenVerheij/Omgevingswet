@@ -12,7 +12,9 @@ public class ModelOutput: IAPIModel{
 
     public byte[] model;
 
-    public ModelOutput(int id, int userid, bool pub, int visibleRange, double longitude, double latitude, string createdAt, byte[] model)
+    public byte[] json;
+
+    public ModelOutput(int id, int userid, bool pub, int visibleRange, double longitude, double latitude, string createdAt, byte[] model, byte[] json)
     {
         this.id = id;
         this.userid = userid;
@@ -22,6 +24,7 @@ public class ModelOutput: IAPIModel{
         this.latitude = latitude;
         this.createdAt = createdAt;
         this.model = model;
+        this.json = json;
     }
 
     public static ModelOutput fromJson(string json){
