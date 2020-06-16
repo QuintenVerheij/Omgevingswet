@@ -85,28 +85,21 @@ public class SpawnOnMap : MonoBehaviour
             //Populate marker objects with data
             for (int i = 0; i < markers.Length; i++)
             {
-                _locations = new Vector2d[markers.Length];
-                _spawnedObjects = new List<GameObject>();
-                List<ClickMarker> CMs = new List<ClickMarker>();
-                //Populate marker objects with data
-                for (int i = 0; i < markers.Length; i++)
-                {
-                    //Get location from markerdata
-                    ModelOutputPreview marker = markers[i];
-                    _locations[i] = new Vector2d(marker.longitude, marker.latitude);
-                    var instance = Instantiate(_markerPrefab);
+                //Get location from markerdata
+                ModelOutputPreview marker = markers[i];
+                _locations[i] = new Vector2d(marker.longitude, marker.latitude);
+                var instance = Instantiate(_markerPrefab);
 
-                    instance.transform.localPosition = _map.GeoToWorldPosition(_locations[i], true);
-                    instance.transform.localScale = new Vector3(_spawnScale, _spawnScale, _spawnScale);
-                    //Set markerdata in OnClickScript for marker
-                    ClickMarker CM = instance.GetComponent("ClickMarker") as ClickMarker;
-                    CM.SetMarkerData(marker);
-                    CMs.Add(CM);
+                instance.transform.localPosition = _map.GeoToWorldPosition(_locations[i], true);
+                instance.transform.localScale = new Vector3(_spawnScale, _spawnScale, _spawnScale);
+                //Set markerdata in OnClickScript for marker
+                ClickMarker CM = instance.GetComponent("ClickMarker") as ClickMarker;
+                CM.SetMarkerData(marker);
+                
 
-                    _spawnedObjects.Add(instance);
-                }
-                _map.GetComponent<QuadTreeCameraMovement>().markers = CMs.ToArray();
+                _spawnedObjects.Add(instance);
             }
+
         }
     }
 

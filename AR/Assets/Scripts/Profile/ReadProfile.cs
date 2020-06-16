@@ -246,7 +246,7 @@ public class ReadProfile : MonoBehaviour, IPointerClickHandler
         {
             Message m = Message.fromJson(www.downloadHandler.text);
             Debug.Log(m.ToString());
-            LoadSceneWithUserId.SceneLoader(user.readUserId());
+            new LoadSceneWithUserId().SceneLoader(user.readUserId());
         }
     }
 }
