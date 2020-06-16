@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using UnityEngine;
 
-public class LoadSceneWithUserId : MonoBehaviour
+public static class LoadSceneWithUserId
 {
     private int _userId;
     public void setUserId(int userId)

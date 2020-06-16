@@ -6,10 +6,13 @@ public class ModelUpdateFiles: IAPIModel {
     public byte[] preview;
     public byte[] model;
 
-    public ModelUpdateFiles(byte[] preview, byte[] model)
+    public byte[] json;
+
+    public ModelUpdateFiles(byte[] preview, byte[] model, byte[] json)
     {
         this.preview = preview;
         this.model = model;
+        this.json = json;
     }
 
     public ModelUpdateFiles fromJson(string Json){

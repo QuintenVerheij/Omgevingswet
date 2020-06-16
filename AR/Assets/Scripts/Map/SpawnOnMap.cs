@@ -2,6 +2,7 @@
 using UnityEngine;
 using Mapbox.Utils;
 using Mapbox.Unity.Map;
+using Mapbox.Examples;
 using Mapbox.Unity.MeshGeneration.Factories;
 using Mapbox.Unity.Utilities;
 using System.Collections.Generic;
@@ -34,22 +35,24 @@ public class SpawnOnMap : MonoBehaviour
 
     IEnumerator LoadMarkers()
     {
+        bool isLoggedin = false;
         string url;
         currentUser cu = new currentUser();
         UnityWebRequest www;
         if (cu.readUserId() != -1)
         {
             byte[] jsonToSend = new AuthorizedAction<int>(new AuthorizationToken(cu.readToken()), cu.readUserId()).toJsonRaw();
-            url = "localhost:8080/model/read";
+            url = AppStartup.APIURL + ":8080/model/read";
             www = new UnityWebRequest(url, "POST");
             www.uploadHandler = (UploadHandler)new UploadHandlerRaw(jsonToSend);
             www.downloadHandler = (DownloadHandler)new DownloadHandlerBuffer();
             www.SetRequestHeader("Content-Type", "application/json");
+            isLoggedin = true;
 
         }
         else
         {
-            url = "localhost:8080/model/public/read";
+            url = AppStartup.APIURL + ":8080/model/public/read";
             www = new UnityWebRequest(url, "GET");
             www.downloadHandler = (DownloadHandler)new DownloadHandlerBuffer();
         }
@@ -82,18 +85,27 @@ public class SpawnOnMap : MonoBehaviour
             //Populate marker objects with data
             for (int i = 0; i < markers.Length; i++)
             {
-                //Get location from markerdata
-                ModelOutputPreview marker = markers[i];
-                _locations[i] = new Vector2d(marker.longitude, marker.latitude);
-                var instance = Instantiate(_markerPrefab);
+                _locations = new Vector2d[markers.Length];
+                _spawnedObjects = new List<GameObject>();
+                List<ClickMarker> CMs = new List<ClickMarker>();
+                //Populate marker objects with data
+                for (int i = 0; i < markers.Length; i++)
+                {
+                    //Get location from markerdata
+                    ModelOutputPreview marker = markers[i];
+                    _locations[i] = new Vector2d(marker.longitude, marker.latitude);
+                    var instance = Instantiate(_markerPrefab);
 
-                instance.transform.localPosition = _map.GeoToWorldPosition(_locations[i], true);
-                instance.transform.localScale = new Vector3(_spawnScale, _spawnScale, _spawnScale);
-                //Set markerdata in OnClickScript for marker
-                ClickMarker CM = instance.GetComponent("ClickMarker") as ClickMarker;
-                CM.SetMarkerData(marker);
+                    instance.transform.localPosition = _map.GeoToWorldPosition(_locations[i], true);
+                    instance.transform.localScale = new Vector3(_spawnScale, _spawnScale, _spawnScale);
+                    //Set markerdata in OnClickScript for marker
+                    ClickMarker CM = instance.GetComponent("ClickMarker") as ClickMarker;
+                    CM.SetMarkerData(marker);
+                    CMs.Add(CM);
 
-                _spawnedObjects.Add(instance);
+                    _spawnedObjects.Add(instance);
+                }
+                _map.GetComponent<QuadTreeCameraMovement>().markers = CMs.ToArray();
             }
         }
     }

@@ -5,24 +5,24 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/Login.unity
     guid: 4735af62618c9394699542c6d54ff33d
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/Maps.unity
     guid: 70b1f401a88f50648a3bcc31644c359b
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/Main AR.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/Profile.unity
     guid: 2b5f64712fa521842a56e420d3a1f20f
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/RegistreerPagina.unity
     guid: 130e123ef429dcc4383bd88474b1c389
   - enabled: 1
-    path: Assets/Scenes/ViewARModel.unity
-    guid: 61aaa5824a62dcf4c8d67028effed086
+    path: Assets/Scenes/Save Model.unity
+    guid: d450e65cc3c4dc044ad83bc9f29bce54
   m_configObjects:
     com.unity.xr.arcore.PlayerSettings: {fileID: 11400000, guid: 2328ac3899545d34ba0bdca08b91503e,
       type: 2}
