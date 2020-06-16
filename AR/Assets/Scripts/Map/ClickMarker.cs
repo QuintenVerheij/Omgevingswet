@@ -34,6 +34,7 @@ public class ClickMarker : MonoBehaviour
         _popUpMessage.GetComponentInChildren<RawImage>().texture = newTexture;
         Debug.Log(_data);
         _popUpMessage.GetComponent<ViewOtherModel>().SetModelID(_data.id);
+        _popUpMessage.GetComponentInChildren<ModelIdHolder>().modelId = _data.id;
         _popUpMessage.GetComponentInChildren<ClickViewProfile>().SetUserID(_data.userid);
     }
     //public void OnTouchUp()

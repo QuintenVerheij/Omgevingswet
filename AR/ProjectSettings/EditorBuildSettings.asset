@@ -6,9 +6,6 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Dev/OpenARTest.unity
-    guid: ece40141b8ca92b4089aca44c7faf792
-  - enabled: 1
     path: Assets/Scenes/Login.unity
     guid: 4735af62618c9394699542c6d54ff33d
   - enabled: 1
