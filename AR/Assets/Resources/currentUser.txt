@@ -1,1 +1,1 @@
-{"userId":5,"token":"18a685e67b3da191b62f11c6deb6de11bd998dca287afdfba6cb7721ae7061494f2ae670c8c48fa3e2d2a9ba726381c9924d3eafdff3a26c9c9ebdd4b51e5f5f"}
+{"userId":-1,"token":""}

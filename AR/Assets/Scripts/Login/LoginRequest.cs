@@ -51,7 +51,7 @@ public class LoginRequest : MonoBehaviour
                 currentUser cu = new currentUser();
                 cu.writeUserId(output.userId ?? default(int));
                 cu.writeToken(output.token);
-                SceneManager.LoadScene(3);
+                new LoadSceneWithUserId().SceneLoader(cu.readUserId());
             }
             else
             {
@@ -60,6 +60,13 @@ public class LoginRequest : MonoBehaviour
             }
         }
 
+    }
+
+    public void continueWithoutLogin() {
+        currentUser cu = new currentUser();
+        cu.writeToken("");
+        cu.writeUserId(-1);
+        new LoadSceneWithUserId().SceneLoader(0);
     }
 
 }
