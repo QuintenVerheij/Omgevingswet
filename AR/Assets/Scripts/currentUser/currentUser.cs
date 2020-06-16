@@ -6,6 +6,7 @@ using Newtonsoft.Json;
 
 public class currentUser
 {
+    public static string path;
     protected class User
     {
         public int userId { get; set; }
@@ -21,7 +22,7 @@ public class currentUser
             return JsonConvert.SerializeObject(this);
         }
     }
-    private string path = "Assets/Resources/currentUser.txt";
+    // private string path = "Assets/Resources/currentUser.txt";
     public string readToken()
     {
         StreamReader reader = new StreamReader(path);

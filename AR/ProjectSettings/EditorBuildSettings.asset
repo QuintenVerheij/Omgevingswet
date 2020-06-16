@@ -20,6 +20,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/RegistreerPagina.unity
     guid: 130e123ef429dcc4383bd88474b1c389
+  - enabled: 1
+    path: Assets/Scenes/Save Model.unity
+    guid: d450e65cc3c4dc044ad83bc9f29bce54
   m_configObjects:
     com.unity.xr.arcore.PlayerSettings: {fileID: 11400000, guid: 2328ac3899545d34ba0bdca08b91503e,
       type: 2}

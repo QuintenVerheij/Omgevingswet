@@ -6,11 +6,14 @@ public class EnvironmentHandler : BaseModeInputHandler {
     public PlacementIndicator placementIndicator;
     public GameObject environment; //environment objects & visible plane only, used for scaling and rotating
     public GameObject environmentScene; //environment + plane collider, used for positioning
+    public GameObject collisionPlane_environment;
 
     public GameObject uiGroup_environment;
 
     public Camera arCamera;
     public string arLayer;
+
+    public GridDisplay gridDisplay;
 
     public static EnvironmentHandler Instance { get; private set; }
     private void Awake() {
@@ -38,6 +41,7 @@ public class EnvironmentHandler : BaseModeInputHandler {
             placementIndicator.gameObject.SetActive(true);
         if(uiGroup_environment)
             uiGroup_environment.SetActive(true);
+        gridDisplay.SetGridDisplay(false);
         SetARLayerVisibility(true);
     }
 
@@ -46,6 +50,7 @@ public class EnvironmentHandler : BaseModeInputHandler {
             placementIndicator.gameObject.SetActive(false);
         if(uiGroup_environment)
             uiGroup_environment.SetActive(false);
+        
         SetARLayerVisibility(false);
     }
 
