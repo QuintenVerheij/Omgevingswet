@@ -105,8 +105,10 @@ public class ARInputState : MonoBehaviour
                         }
                         else if (touch.current.phase == TouchPhase.Moved && touch.hasHitPlane) {
                             Vector3 delta = hit.point - touch.lastPlaneHitPos;
-                            touch.lastPlaneHitPos = hit.point;
                             currentHandler.OnPlaneTouchMove(delta); //execute event
+                            currentHandler.OnPlaneTouchMove(touch.firstPlaneHitPos, touch.lastPlaneHitPos, hit.point); //execute event
+                            touch.lastPlaneHitPos = hit.point;
+
                         }
                         break;
                     }
@@ -123,6 +125,10 @@ public class ARInputState : MonoBehaviour
                 if(Physics.Raycast(ray, out hit)) {
                     currentHandler.OnScreenPointHitEnd(hit, touch.start.position, touch.current.position); //execute event
                 }
+            }
+
+            if(touch.current.phase == TouchPhase.Moved) {
+                currentHandler.OnScreenPointMove(touch.current.deltaPosition);
             }
         }
         else if(keys.Length == 2){ //two finger presses

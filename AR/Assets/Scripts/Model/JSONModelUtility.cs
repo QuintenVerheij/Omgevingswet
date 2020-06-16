@@ -149,16 +149,20 @@ public class JSONModelUtility : MonoBehaviour
 
         Vector3 positionSum = new Vector3();
         for(int i = 0; i < sceneModels.Length; i++) {
-            positionSum += sceneModels[i].transform.localPosition;
+            positionSum += sceneModels[i].transform.position;
         }
         Vector3 averagePosition = new Vector3(positionSum.x / sceneModels.Length, positionSum.y / sceneModels.Length, positionSum.z / sceneModels.Length);
-        combinedModelObject.transform.localPosition = averagePosition;
+        combinedModelObject.transform.position = averagePosition;
 
         for (int i = 0; i < sceneModels.Length; i++) {
-            GameObject newModel = Instantiate(prefabModels[i].gameObject, combinedModelObject.transform);
-            newModel.transform.localPosition = combinedModelObject.transform.localPosition - sceneModels[i].transform.localPosition;
+            GameObject newModel = Instantiate(prefabModels[i].gameObject);
+            //newModel.transform.localPosition = combinedModelObject.transform.localPosition - sceneModels[i].transform.localPosition;
+            newModel.transform.position = sceneModels[i].transform.position;
+            newModel.transform.rotation = sceneModels[i].transform.rotation;
+            newModel.transform.localScale = sceneModels[i].transform.lossyScale;
+            newModel.transform.parent = combinedModelObject.transform;
 
-            Destroy(newModel.GetComponent<Model>());
+            DestroyImmediate(newModel.GetComponent<Model>());
             CombinedModelPart part = newModel.AddComponent<CombinedModelPart>();
             part.model = modelCopy;
         }
