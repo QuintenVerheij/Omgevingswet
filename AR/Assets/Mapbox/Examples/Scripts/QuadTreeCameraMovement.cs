@@ -33,7 +33,6 @@
         private Plane _groundPlane = new Plane(Vector3.up, 0);
         private bool _dragStartedOnUI = false;
 
-        public ClickMarker[] markers;
 
         public SaveModel saveModel;
         public SpawnOnMap spawn;
@@ -184,17 +183,6 @@
                 var pos = _referenceCamera.ScreenToWorldPoint(mousePosScreen);
 
                 var latlongDelta = _mapManager.WorldToGeoPosition(pos);
-                if (markers != null)
-                {
-                    foreach (ClickMarker marker in markers)
-                    {
-						// Debug.Log(marker.getMarkerData().latitude.ToString() + " , " + marker.getMarkerData().longitude.ToString());
-                        if (Math.Abs(marker.getMarkerData().longitude - latlongDelta.x) < 1 && Math.Abs(marker.getMarkerData().latitude - latlongDelta.y) < 1)
-                        {
-							marker.showPopup();
-                        }
-                    }
-                }
                 if (saveModel != null)
                 {
                     saveModel.latitude = latlongDelta.x;

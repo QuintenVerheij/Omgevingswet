@@ -5,16 +5,14 @@ using UnityEngine.UI;
 
 public class ClickViewProfile : MonoBehaviour
 {
+    public Button btn;
     private int _userID;
-    public Button button;
     public void SetUserID(int userID)
     {
         this._userID = userID;
     }
-
-    void start()
+    void Start()
     {
-        LoadSceneWithUserId sl = new LoadSceneWithUserId();
-        button.onClick.AddListener(() => sl.SceneLoader(_userID));
+        btn.onClick.AddListener(delegate { new LoadSceneWithUserId().SceneLoader(_userID); });
     }
 }

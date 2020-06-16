@@ -35,7 +35,6 @@ public class SpawnOnMap : MonoBehaviour
 
     IEnumerator LoadMarkers()
     {
-        bool isLoggedin = false;
         string url;
         currentUser cu = new currentUser();
         UnityWebRequest www;
@@ -47,7 +46,6 @@ public class SpawnOnMap : MonoBehaviour
             www.uploadHandler = (UploadHandler)new UploadHandlerRaw(jsonToSend);
             www.downloadHandler = (DownloadHandler)new DownloadHandlerBuffer();
             www.SetRequestHeader("Content-Type", "application/json");
-            isLoggedin = true;
 
         }
         else
@@ -82,7 +80,7 @@ public class SpawnOnMap : MonoBehaviour
             }
             _locations = new Vector2d[markers.Length];
             _spawnedObjects = new List<GameObject>();
-            List<ClickMarker> m = new List<ClickMarker>();
+            //List<ClickMarker> m = new List<ClickMarker>();
             //Populate marker objects with data
             for (int i = 0; i < markers.Length; i++)
             {
@@ -96,11 +94,11 @@ public class SpawnOnMap : MonoBehaviour
                 //Set markerdata in OnClickScript for marker
                 ClickMarker CM = instance.GetComponent("ClickMarker") as ClickMarker;
                 CM.SetMarkerData(marker);
-                m.Add(CM);
+                //m.Add(CM);
 
                 _spawnedObjects.Add(instance);
             }
-        _map.GetComponent<QuadTreeCameraMovement>().markers = m.ToArray();
+        //_map.GetComponent<QuadTreeCameraMovement>().markers = m.ToArray();
         }
     }
 
