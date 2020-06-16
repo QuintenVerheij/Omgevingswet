@@ -8,6 +8,9 @@ public class EnvironmentHandler : BaseModeInputHandler {
     public GameObject environmentScene; //environment + plane collider, used for positioning
     public GameObject collisionPlane_environment;
 
+    public AR_ArgumentLoader argumentLoader;
+    private bool argumentModelHasBeenPlaced = false;
+
     public GameObject uiGroup_environment;
 
     public Camera arCamera;
@@ -78,5 +81,10 @@ public class EnvironmentHandler : BaseModeInputHandler {
         environment.SetActive(true);
         environmentScene.transform.position = placementIndicator.transform.position;
         environmentScene.transform.rotation = placementIndicator.transform.rotation;
+
+        if (!argumentModelHasBeenPlaced) {
+            argumentModelHasBeenPlaced = true;
+            argumentLoader.PlaceArgumentModel();
+        }
     }
 }
