@@ -33,7 +33,7 @@ public class QuadTreeCustom : MonoBehaviour
     private bool _dragStartedOnUI = false;
 
     public SaveModel saveModel;
-    public SpawnOnMap spawn;
+    public SpawnOnMapCustom spawn;
 
     void Awake()
     {

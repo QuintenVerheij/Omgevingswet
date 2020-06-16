@@ -11,7 +11,11 @@ public class AppStartup : MonoBehaviour
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
     static void OnBeforeSceneLoadRuntimeMethod()
     {
-        APIURL = "locahost";
+        //CHANGE THIS TO LOCAL IP OF COMPUTER RUNNING THE BACKEND
+        //"http://<LOCALIP>"
+        APIURL = "http://192.168.2.1";
+
+
         currentUser user = new currentUser();
         string dirpath = Application.persistentDataPath + "/currentUser";
         if(!Directory.Exists(dirpath)){
