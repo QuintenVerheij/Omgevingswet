@@ -5,6 +5,9 @@ using UnityEngine.Networking;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using System.IO;
+#if PLATFORM_ANDROID
+using UnityEngine.Android;
+#endif
 
 public class ReadProfile : MonoBehaviour, IPointerClickHandler
 {
@@ -54,6 +57,13 @@ public class ReadProfile : MonoBehaviour, IPointerClickHandler
             StartCoroutine(GetOtherUser());
         }
         StartCoroutine(GetPic());
+
+#if PLATFORM_ANDROID
+        if (!Permission.HasUserAuthorizedPermission(Permission.Camera))
+        {
+            Permission.RequestUserPermission(Permission.Camera);
+        }
+#endif
     }
 
     IEnumerator GetPic()
@@ -180,8 +190,9 @@ public class ReadProfile : MonoBehaviour, IPointerClickHandler
         {
             Debug.Log("Camera");
             WebCamDevice[] devices = WebCamTexture.devices;
-            webCamTexture = new WebCamTexture(devices[0].name);
-            GetComponent<Renderer>().material.mainTexture = webCamTexture; //Add Mesh Renderer to the GameObject to which this script is attached to
+            if (devices.Length > 1) { webCamTexture = new WebCamTexture(devices[1].name);}
+            else { webCamTexture = new WebCamTexture(devices[0].name); }
+            GetComponent<Renderer>().material.mainTexture = webCamTexture;//Add Mesh Renderer to the GameObject to which this script is attached to
             webCamTexture.Play();
 
             showCam = true;
