@@ -50,8 +50,18 @@ public class ObjectCreationHandler : BaseModeInputHandler {
     public override void OnPlaneTouchBegin(Vector3 position) {
         if(currentIndex >= 0) {
             GameObject instance = Instantiate(models[currentIndex].gameObject, placedObjectsParent.transform);
+            instance.GetComponent<Model>().enabled = true;
             instance.SetActive(true);
             instance.transform.position = position;
+
+            Model modelInstance = instance.GetComponent<Model>();
+            if (modelInstance.IsCustomModel) {
+                var parts = instance.GetComponentsInChildren<CombinedModelPart>();
+                foreach (var modelPart in parts) {
+                    modelPart.model = modelInstance;
+                }
+                modelInstance.CreateHighlights();
+            }
         }
     }
 
@@ -61,7 +71,7 @@ public class ObjectCreationHandler : BaseModeInputHandler {
         if(currentIndex >= models.Count) {
             currentIndex = 0; //go back to the first model
         }
-        OnIndexChange();  //update active state of the models (which can make the models visible/invisible)
+        //OnIndexChange();  //update active state of the models (which can make the models visible/invisible)
     }
 
     //decrement the index and update the visibility of the models
@@ -70,26 +80,20 @@ public class ObjectCreationHandler : BaseModeInputHandler {
         if(currentIndex < 0) {
             currentIndex = models.Count - 1; //set it to the last index
         }
-        OnIndexChange(); //update active state of the models (which can make the models visible/invisible)
-    }
-
-
-    void OnIndexChange() {
-        /*for(int i = 0; i < models.Length; i++) {
-            bool shouldBeActive = i == currentIndex;
-            models[i].gameObject.SetActive(shouldBeActive); //enable or disable the gameobject, depending on the index
-            //when disabled, the model will be invisible, and if enabled, will make the model visible again.
-        }*/
+        //OnIndexChange(); //update active state of the models (which can make the models visible/invisible)
     }
 
     //Make a copy of the custom model and add it to the list of models
     public void AddCustomModel(CombinedModel model) {
         model.GetComponent<Model>().modelIndex = models.Count;
 
+        //model.enabled = false;
         GameObject prefab = Instantiate(model.gameObject, customModelPrefabFolder);
         prefab.transform.localPosition = new Vector3(0, 0, 0);
         prefab.SetActive(false); //make the prefab invisible
         
         models.Add(prefab.GetComponent<Model>());
+
+        //model.enabled = true;
     }
 }

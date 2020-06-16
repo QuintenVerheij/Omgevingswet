@@ -160,7 +160,7 @@ public class JSONModelUtility : MonoBehaviour
             newModel.transform.localScale = sceneModels[i].transform.lossyScale;
             newModel.transform.parent = combinedModelObject.transform;
 
-            Destroy(newModel.GetComponent<Model>());
+            DestroyImmediate(newModel.GetComponent<Model>());
             CombinedModelPart part = newModel.AddComponent<CombinedModelPart>();
             part.model = modelCopy;
         }
