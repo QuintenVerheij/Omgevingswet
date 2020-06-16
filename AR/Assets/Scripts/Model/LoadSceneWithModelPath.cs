@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class LoadSceneWithModelPath : MonoBehaviour
 {
+    public LoadSceneWithModelPath() { }
     public void SceneLoader(string modelPath, string previewPath)
     {
         SaveModel.modelPath = modelPath;

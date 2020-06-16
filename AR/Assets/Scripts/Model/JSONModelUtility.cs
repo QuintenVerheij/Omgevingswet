@@ -63,7 +63,7 @@ public class JSONModelUtility : MonoBehaviour
     }
 
     
-    public static void ExportCustomModel(string localPath, CombinedModel combinedModel) {
+    public static string ExportCustomModel(string localPath, CombinedModel combinedModel) {
         string path = Application.persistentDataPath + "/" + localPath + ".json";
         JSONCombinedModel jsonModel = new JSONCombinedModel(combinedModel);
         string json = JSONCombinedModel.ToJSON(jsonModel);
@@ -71,6 +71,8 @@ public class JSONModelUtility : MonoBehaviour
         Debug.Log("Exporting json file to '" + path + "'");
 
         File.WriteAllText(path, json);
+
+        return path;
     }
 
     public static CombinedModel JSONModelToCombinedModel(JSONCombinedModel jsonCombinedModel, Transform parent, string name) {

@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using System.IO;
 public class ObjectSelectionHandler : BaseModeInputHandler {
     public enum GridMode {
         XZ, XY, YZ
@@ -132,19 +132,38 @@ public class ObjectSelectionHandler : BaseModeInputHandler {
         selectedModels.CopyTo(modelArray);
         return JSONModelUtility.CanCombineModels(modelArray);
     }
-    public void CombineSelectedModels() {
+    public void CombineSelectedModels(Camera thumbnailCamera) {
         Model[] modelArray = new Model[selectedModels.Count];
         selectedModels.CopyTo(modelArray);
         if (CanCombineSelectedModels()) {
             CombinedModel obj = JSONModelUtility.CombineModels(modelArray, placedModelFolder, $"Custom Model-{System.DateTime.Now.Ticks}");
             ObjectCreationHandler.Instance.AddCustomModel(obj);
             //JSONCombinedModel jsonCombinedModel = new JSONCombinedModel(obj);
-            JSONModelUtility.ExportCustomModel(obj.transform.name, obj);
+            string modelPath = JSONModelUtility.ExportCustomModel(obj.transform.name, obj);
+            Model m = obj.transform.GetComponentInChildren<Model>();
+            RenderTexture thumbnail = new ThumbnailManager().CreateThumbnail(thumbnailCamera, 300, 300, m.thumbnailDistance, Quaternion.Euler(m.thumbnailOrientation), obj.gameObject);
+            string thumbnailPath = saveThumbNail(thumbnail);
+
 
             foreach (var model in selectedModels) {
                 model.SetHighlight(false);
             }
             selectedModels.Clear();
+
+            new LoadSceneWithModelPath().SceneLoader(modelPath, thumbnailPath);
         }
+    }
+
+    public string saveThumbNail(RenderTexture thumbnail){
+        string path = Application.persistentDataPath + "/thumbnail" + ".png";
+        RenderTexture.active = thumbnail;
+        Texture2D thumb = new Texture2D(thumbnail.width,thumbnail.height, TextureFormat.RGB24, false);
+        thumb.ReadPixels(new Rect(0,0, thumbnail.width, thumbnail.height), 0, 0);
+        thumb.Apply();
+        byte[] bytes = thumb.EncodeToPNG();
+
+        File.WriteAllBytes(path, bytes);
+        return path;
+
     }
 }
