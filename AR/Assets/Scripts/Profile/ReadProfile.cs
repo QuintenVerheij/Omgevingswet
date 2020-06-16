@@ -58,7 +58,7 @@ public class ReadProfile : MonoBehaviour, IPointerClickHandler
 
     IEnumerator GetPic()
     {
-        UnityWebRequest uwr = new UnityWebRequest("localhost:8080/user/img/" + crossedId, "GET");
+        UnityWebRequest uwr = new UnityWebRequest(AppStartup.APIURL + ":8080/user/img/" + crossedId, "GET");
         uwr.downloadHandler = (DownloadHandler)new DownloadHandlerBuffer();
         yield return uwr.SendWebRequest();
         if (uwr.isNetworkError || uwr.isHttpError)
@@ -79,7 +79,7 @@ public class ReadProfile : MonoBehaviour, IPointerClickHandler
     }
     IEnumerator GetOtherUser()
     {
-        string url = "localhost:8080/user/other/read/" + crossedId;
+        string url = AppStartup.APIURL + ":8080/user/other/read/" + crossedId;
         UnityWebRequest net = new UnityWebRequest(url, "GET");
         net.downloadHandler = (DownloadHandler)new DownloadHandlerBuffer();
         yield return net.SendWebRequest();
@@ -110,7 +110,7 @@ public class ReadProfile : MonoBehaviour, IPointerClickHandler
     }
     IEnumerator GetUserInfo()
     {
-        string url = "localhost:8080/user/read";
+        string url = AppStartup.APIURL + ":8080/user/read";
         UnityWebRequest net = new UnityWebRequest(url, "POST");
         net.uploadHandler = (UploadHandler)new UploadHandlerRaw(action.toJsonRaw());
         net.downloadHandler = (DownloadHandler)new DownloadHandlerBuffer();
@@ -225,7 +225,7 @@ public class ReadProfile : MonoBehaviour, IPointerClickHandler
     IEnumerator UploadPhoto()
     {
         // byte[] boundary = UnityWebRequest.GenerateBoundary();
-        // UnityWebRequest www = new UnityWebRequest("localhost:8080/user/img/upload?auth=" + user.readToken() + "&input=" + user.readUserId(), "POST");
+        // UnityWebRequest www = new UnityWebRequest("192.168.2.1:8080/user/img/upload?auth=" + user.readToken() + "&input=" + user.readUserId(), "POST");
         // List<IMultipartFormSection> requestData = new List<IMultipartFormSection>();
         // requestData.Add(new MultipartFormDataSection("auth=" + user.readToken() + "&input=" + user.readUserId()));
         // requestData.Add(new MultipartFormFileSection("file", File.ReadAllBytes("Assets/Resources/" + user.readUserId() + "_Profile.png"), "upload.png", "image/png"));
@@ -236,7 +236,7 @@ public class ReadProfile : MonoBehaviour, IPointerClickHandler
         // www.SetRequestHeader("Content-Type", "multipart/form-data");
         WWWForm form = new WWWForm();
         form.AddBinaryData("file", File.ReadAllBytes("Assets/Resources/" + user.readUserId() + "_Profile.png"), "upload.png", "image/png");
-        UnityWebRequest www = UnityWebRequest.Post("localhost:8080/user/img/upload?auth=" + user.readToken() + "&input=" + user.readUserId(), form);
+        UnityWebRequest www = UnityWebRequest.Post(AppStartup.APIURL + ":8080/user/img/upload?auth=" + user.readToken() + "&input=" + user.readUserId(), form);
         yield return www.SendWebRequest();
         if (www.isNetworkError || www.isHttpError)
         {
@@ -246,7 +246,7 @@ public class ReadProfile : MonoBehaviour, IPointerClickHandler
         {
             Message m = Message.fromJson(www.downloadHandler.text);
             Debug.Log(m.ToString());
-            new LoadSceneWithUserId().SceneLoader(user.readUserId());
+            LoadSceneWithUserId.SceneLoader(user.readUserId());
         }
     }
 }

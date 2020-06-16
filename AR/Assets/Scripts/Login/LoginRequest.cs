@@ -20,7 +20,7 @@ public class LoginRequest : MonoBehaviour
 
     IEnumerator Login()
     {
-        string url = "localhost:8080/auth/login";
+        string url = AppStartup.APIURL + ":8080/auth/login";
 
         //data = new LoginDataToJSON();
         //data.mail = userName.text;
@@ -51,7 +51,7 @@ public class LoginRequest : MonoBehaviour
                 currentUser cu = new currentUser();
                 cu.writeUserId(output.userId ?? default(int));
                 cu.writeToken(output.token);
-                new LoadSceneWithUserId().SceneLoader(cu.readUserId());
+                LoadSceneWithUserId.SceneLoader(cu.readUserId());
             }
             else
             {
@@ -66,7 +66,7 @@ public class LoginRequest : MonoBehaviour
         currentUser cu = new currentUser();
         cu.writeToken("");
         cu.writeUserId(-1);
-        new LoadSceneWithUserId().SceneLoader(0);
+        LoadSceneWithUserId.SceneLoader(0);
     }
 
 }

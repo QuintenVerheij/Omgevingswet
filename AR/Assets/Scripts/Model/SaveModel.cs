@@ -99,7 +99,7 @@ public class SaveModel : MonoBehaviour
             DateTime.Now.ToString()
         );
         Debug.Log(model.ToString());
-        string url = "localhost:8080/model/create";
+        string url = AppStartup.APIURL + ":8080/model/create";
         UnityWebRequest uwr = new UnityWebRequest(url, "POST");
         uwr.uploadHandler = (UploadHandler) new UploadHandlerRaw(model.toJsonRaw());
         uwr.downloadHandler = (DownloadHandler) new DownloadHandlerBuffer();
@@ -127,7 +127,7 @@ public class SaveModel : MonoBehaviour
         WWWForm form = new WWWForm();
         form.AddBinaryData("modelJson", File.ReadAllBytes(modelPath), "upload.json");
         form.AddBinaryData("preview", File.ReadAllBytes(previewPath), "upload.png", "image/png");
-        UnityWebRequest www = UnityWebRequest.Post("localhost:8080/model/create/files?token=" + user.readToken() + 
+        UnityWebRequest www = UnityWebRequest.Post(AppStartup.APIURL + ":8080/model/create/files?token=" + user.readToken() + 
                                                     "&userId=" + user.readUserId() + 
                                                     "&modelId=" + targetId , form);
         www.downloadHandler = (DownloadHandler) new DownloadHandlerBuffer();

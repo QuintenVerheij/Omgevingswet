@@ -2,16 +2,34 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
+using System.IO;
 
 public class AppStartup : MonoBehaviour
 {
+    public static string APIURL;
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
     static void OnBeforeSceneLoadRuntimeMethod()
     {
+        APIURL = "locahost";
         currentUser user = new currentUser();
+        string dirpath = Application.persistentDataPath + "/currentUser";
+        if(!Directory.Exists(dirpath)){
+            Directory.CreateDirectory(dirpath);
+        }
+        string path = Application.persistentDataPath + "/currentUser" + "/currentUser.txt";
+        currentUser.path = path;
+        if(!File.Exists(path)){
+            using(StreamWriter w = File.CreateText(path))
+            {
+                w.WriteLine("{\"userId\":-1,\"token\":\"\"}");
+            }
+            
+        }
+        
+        
         AuthorizationToken token = new AuthorizationToken(user.readToken());
-        string url = "localhost:8080/auth/whoami";
+        string url = APIURL + ":8080/auth/whoami";
         UnityWebRequest uwr = new UnityWebRequest(url, "POST");
         uwr.uploadHandler = (UploadHandler)new UploadHandlerRaw(token.toJsonRaw());
         uwr.downloadHandler = (DownloadHandler)new DownloadHandlerBuffer();

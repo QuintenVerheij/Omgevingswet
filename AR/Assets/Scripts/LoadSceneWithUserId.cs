@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using UnityEngine;
 
-public class LoadSceneWithUserId : MonoBehaviour
+public static class LoadSceneWithUserId
 {
-    public void SceneLoader(int userId)
+    public static void SceneLoader(int userId)
     {
         ReadProfile.crossedId = userId;
         SceneManager.LoadScene(3);
