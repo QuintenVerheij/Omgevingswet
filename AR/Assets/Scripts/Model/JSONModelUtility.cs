@@ -7,14 +7,15 @@ using System;
 
 [Serializable]
 public class JSONModel {
-    [SerializeField]public int modelIndex;
+    [SerializeField] public int modelIndex;
     [SerializeField] public Vector3 position;
     [SerializeField] public Quaternion rotation;
     [SerializeField] public Vector3 scale;
 }
 [Serializable]
 public class JSONCombinedModel {
-    [SerializeField] JSONModel[] models;
+    [SerializeField] public string name;
+    [SerializeField] public JSONModel[] models;
 
     public JSONCombinedModel(CombinedModel combinedModel) {
         Debug.Log($"[ExportCustomModel] combinedModel name: {combinedModel.transform.name}, child count: {combinedModel.transform.childCount}");
@@ -23,9 +24,10 @@ public class JSONCombinedModel {
         if (combinedModel.modelIndices.Count != combinedModel.transform.childCount) {
             Debug.LogError("Amount of modelIndices and children of combined model SHOULD BE EQUAL!");
         }
+        name = combinedModel.name;
         for (int i = 0; i < this.models.Length; i++) {
             Transform child = combinedModel.transform.GetChild(i);
-            Debug.Log($"[ExportCustomModel] {i}, child name: {child.name}");
+            //Debug.Log($"[ExportCustomModel] {i}, child name: {child.name}");
 
             this.models[i] = new JSONModel
             {
@@ -37,14 +39,15 @@ public class JSONCombinedModel {
         }
     }
     public static string ToJSON(JSONCombinedModel model) {
-        return JsonUtility.ToJson(model);
+        return JsonUtility.ToJson(model, true);
+    }
+    public static JSONCombinedModel FromJSON(string json) {
+        return JsonUtility.FromJson<JSONCombinedModel>(json);
     }
 }
 
 public class JSONModelUtility : MonoBehaviour
 {
-    
-
     public static bool CanCombineModels(Model[] models) {
         bool containsCustomModel = false;
         if (models.Length < 2) {
@@ -59,21 +62,38 @@ public class JSONModelUtility : MonoBehaviour
         return !containsCustomModel;
     }
 
-    /*public static string CombineModelsAndConvertToJSON(Model[] models) {
-        if (CanCombineModels(models)) {
-
-        }
-        else {
-            return null;
-        }
-    }*/
+    
     public static void ExportCustomModel(string localPath, CombinedModel combinedModel) {
         string path = Application.persistentDataPath + "/" + localPath + ".json";
         JSONCombinedModel jsonModel = new JSONCombinedModel(combinedModel);
-        Debug.Log("JSON CONTENT:\n"+JSONCombinedModel.ToJSON(jsonModel));
+        string json = JSONCombinedModel.ToJSON(jsonModel);
+        Debug.Log("JSON CONTENT:\n"+json);
         Debug.Log("Exporting json file to '" + path + "'");
 
-        File.WriteAllText(path, JSONCombinedModel.ToJSON(jsonModel));
+        File.WriteAllText(path, json);
+    }
+
+    public static CombinedModel JSONModelToCombinedModel(JSONCombinedModel jsonCombinedModel, Transform parent, string name) {
+        Model[] modelPrefabs = LoadPrefabModels(jsonCombinedModel);
+        Model[] tempSceneModels = new Model[modelPrefabs.Length];
+
+        for (int i = 0; i < modelPrefabs.Length; i++) {
+            GameObject modelObject = Instantiate(modelPrefabs[i].gameObject, parent);
+            tempSceneModels[i] = modelObject.GetComponent<Model>();
+            tempSceneModels[i].transform.localPosition = jsonCombinedModel.models[i].position;
+            tempSceneModels[i].transform.localRotation = jsonCombinedModel.models[i].rotation;
+            tempSceneModels[i].transform.localScale = jsonCombinedModel.models[i].scale;
+        }
+        return CombineModels(tempSceneModels, parent, name);
+    }
+
+    public static CombinedModel ImportCustomModel(string localPath, Transform parent) {
+        string path = Application.persistentDataPath + "/" + localPath + ".json";
+        Debug.Log("Importing json file from '" + path + "'");
+
+        string json = File.ReadAllText(path);
+        JSONCombinedModel jsonCombinedModel = JSONCombinedModel.FromJSON(json);
+        return JSONModelToCombinedModel(jsonCombinedModel, parent, jsonCombinedModel.name);
     }
 
     private static Model[] LoadPrefabModels(Model[] sceneModels) {
@@ -85,8 +105,32 @@ public class JSONModelUtility : MonoBehaviour
         return models;
     }
 
-    public static CombinedModel CombineModels(Model[] sceneModels, Transform parent) {
-        GameObject combinedModelObject = new GameObject("Custom Model");
+    private static Model[] LoadPrefabModels(JSONCombinedModel combinedModel) {
+        Model[] models = new Model[combinedModel.models.Length];
+        for (int i = 0; i < combinedModel.models.Length; i++) {
+            int index = combinedModel.models[i].modelIndex;
+            models[i] = ObjectCreationHandler.Instance.models[index];
+        }
+        return models;
+    }
+
+    public static string[] GetListOfJSONFileNames() {
+        string path = Application.persistentDataPath + "/";
+        var info = new DirectoryInfo(path);
+        var fileInfo = info.GetFiles();
+        List<string> jsonFiles = new List<string>();
+        foreach (var file in fileInfo) {
+            if (file.Extension == ".json") {
+                string filename = file.Name.Replace(".json", "");
+                jsonFiles.Add(filename);
+            }
+        }
+
+        return jsonFiles.ToArray();
+    }
+
+    public static CombinedModel CombineModels(Model[] sceneModels, Transform parent, string modelName) {
+        GameObject combinedModelObject = new GameObject(modelName);
         combinedModelObject.transform.localScale = parent.lossyScale;
         combinedModelObject.transform.parent = parent;
         Model[] prefabModels = LoadPrefabModels(sceneModels);
